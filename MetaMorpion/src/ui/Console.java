@@ -2,8 +2,6 @@ package ui;
 
 import java.util.Scanner;
 
-import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
-
 import data.Grille;
 import data.Joueur;
 import data.Partie;
