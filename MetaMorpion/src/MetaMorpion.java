@@ -2,7 +2,7 @@
 public class MetaMorpion {
 
 	public static void main(String[] args) {
-		System.out.println("Je suis là");
+		System.out.println("Je suis po là");
 
 	}
 
