@@ -31,12 +31,8 @@ public abstract class Constantes {
 	public static final Case SYMBOLE_J1 = Case.X;
 	public static final Case SYMBOLE_J2 = Case.O;
 	
-	//Définition de la taille de la grille
-	public static final int NB_COLONNES = 7;
-	public static final int NB_LIGNES = 6;
-	
 	//Définition du nombre de tours max (dépendant de la taille de la grille)
-	public static final int NB_TOUR_MAX = NB_COLONNES*NB_LIGNES;
+	public static final int NB_TOUR_MAX = 81;
 	
 	//États de la partie
 	public static final int PARTIE_EN_COURS = 0;
