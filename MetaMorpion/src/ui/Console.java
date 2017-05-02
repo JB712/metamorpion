@@ -3,6 +3,7 @@ package ui;
 import java.util.Scanner;
 
 import data.Grille;
+import data.Humain;
 import data.Joueur;
 import data.Partie;
 import util.Constantes;
@@ -48,7 +49,7 @@ public class Console extends Thread {
 			System.out.print("Entrez le nom du joueur "+order+" : ");
 			entry.nextLine();
 			nomJoueur= entry.nextLine();
-			//joueur=new Humain(nomJoueur,order);
+			joueur=new Humain(nomJoueur,order);
 		}
 		
 		return joueur;
