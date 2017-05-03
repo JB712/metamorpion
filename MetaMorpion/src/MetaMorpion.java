@@ -1,8 +1,12 @@
+import data.BigGrille;
+import ui.Console;
 
 public class MetaMorpion {
 
 	public static void main(String[] args) {
-		System.out.println("Je suis po là");
+		Console console = new Console();
+		BigGrille tata = new BigGrille();
+		Console.afficheGrille(tata);
 
 	}
 

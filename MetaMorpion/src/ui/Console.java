@@ -2,6 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
+import data.BigGrille;
 import data.Grille;
 import data.Humain;
 import data.Joueur;
@@ -62,8 +63,8 @@ public class Console extends Thread {
 		System.out.println("Joueur 2 : "+joueur2.getNom()+" ("+joueur2.getTypeNom()+")");		
 	}
 	
-	private static void afficheGrille() {
-		String symbol = "V";
+	public static void afficheGrille(BigGrille tab) {
+		//String symbol = "V";
 		String s="";
 		for(int i=0; i<3; i++){ // crée la méta grille
 			
@@ -72,7 +73,8 @@ public class Console extends Thread {
 				for(int k=0;k<3;k++) //assemble les 3 premières lignes des smallGrille
 				{
 					for(int l=0;l<3;l++){ //crée la première ligne d'une smallGrille
-						s+=" " + symbol + " ";
+						//s+=" " + symbol + " ";
+						s += " " +tab.getCase(3*i+k).getCase(3*j+l) + " ";
 						if (l != 2)
 							s+="|";
 					}
