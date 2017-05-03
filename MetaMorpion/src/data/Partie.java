@@ -1,6 +1,5 @@
 package data;
 
-import data.*;
 import util.*;
 
 public class Partie {
@@ -62,7 +61,6 @@ public class Partie {
 		return true;
 	}
 
-
 	public BigGrille getGrille() {
 		return grille;
 	}
@@ -70,7 +68,7 @@ public class Partie {
 	public int getEtatPartie() {
 		return etatPartie;
 	}
-		
+
 	/**
 	 * Renvoie un booleen qui dit si la partie est terminée.
 	 * Si la partie est terminée, met la variable etatPartie à jour.
