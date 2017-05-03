@@ -19,7 +19,10 @@ public class Humain extends Joueur {
 		return "Humain";
 	}
 
-	@Override 
+	/**
+	 * Retourne un int scanné par la console, -& pour correspondre aux tableaux
+	 * @return int scanné-1
+	 */
 	public int joue(BigGrille grille, Console console, int tour) {
 		return (console.getHumanCoup(this.getNom())-1);
 	}

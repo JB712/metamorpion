@@ -56,7 +56,6 @@ public class SmallGrille{
 	}
 
 	public boolean isCaseLibre(int cas) {
-		// TODO Auto-generated method stub
-		return false;
+		return (cases[cas].equals(Case.V));
 	}
 }

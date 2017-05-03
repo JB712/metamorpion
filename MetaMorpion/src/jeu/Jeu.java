@@ -22,14 +22,14 @@ public class Jeu extends Thread{
 			console.lancementTour(partie.getTour(), partie.getJCourant(), partie.getGrille());
 			
 			long tempsReflexion=System.currentTimeMillis();
+			if(!partie.isGrilleLibre(partie.getPrecedent())){
+				/*if(!partie.jouerCoupDouble(coup, tempsReflexion)){
+					Put the code of Double entry
+				}*/
+			}
 			int coup= partie.getJCourant().joue(partie.getGrille(), console, partie.getTour());
 			tempsReflexion=System.currentTimeMillis()-tempsReflexion;
 			//console.afficherCoup(partie.getJCourant(), coup, tempsReflexion);     afficherCoup sert surtout dans le choix de l'IA
-			if(!partie.isGrilleLibre(partie.getPrecedent())){
-				if(!partie.jouerCoupDouble(coup, tempsReflexion)){
-					
-				}
-			}
 			if(!partie.jouerCoupSimple(coup, tempsReflexion))
 			{
 				System.out.println("COUP INVALIDE : Recommencez !");

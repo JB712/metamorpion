@@ -92,6 +92,8 @@ public class Partie {
 	}
 
 	public boolean jouerCoupSimple(int cas, long tempsReflexion) {
+		
+		// commentaires suivants n'ont rien a faire ici :/
 		// PREMIER COUP
 		// if isGrilleLibre = wrong ==> il faut demander 2 int (grille + case)
 
