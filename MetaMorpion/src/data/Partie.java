@@ -61,6 +61,12 @@ public class Partie {
 		return true;
 	}
 	
+	
+	/**
+	 * Renvoie un booleen qui dit si la partie est terminée.
+	 * Si la partie est terminée, met la variable etatPartie à jour.
+	 * @return
+	 */
 	public boolean isGameOver(){
 		if(grille.wintest(j1.getSymbole()).equals(j1.getSymbole())){
 			etatPartie = Constantes.VICTOIRE_JOUEUR_1;
