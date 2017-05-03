@@ -9,6 +9,7 @@ public class Partie {
 	private int tour;
 	private BigGrille grille;
 	private int etatPartie;
+	private int precedent;
 	
 	public Partie(Joueur joueur1, Joueur joueur2){
 		j1=joueur1;
@@ -88,5 +89,29 @@ public class Partie {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean jouerCoup(int cas, long tempsReflexion) {
+		if(!grille.isCoupPossible(cas))
+		{
+			return false;
+		}
+		
+		if(jCourant==j1)
+		{
+			grille.ajouterCoup(cas, Constantes.SYMBOLE_J1);
+			//verificationFinPartie();
+			grille.wintest(Constantes.SYMBOLE_J1);
+			jCourant= j2;
+		}
+		else
+		{
+			grille.ajouterCoup(cas, Constantes.SYMBOLE_J2);
+			//verificationFinPartie();
+			grille.wintest(Constantes.SYMBOLE_J2);
+			jCourant=j1;
+		}
+		tour++;
+		return true;
 	}
 }

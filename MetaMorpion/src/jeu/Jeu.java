@@ -13,11 +13,11 @@ public class Jeu {
 		this.partie=new Partie(j1, j2);
 		this.console=console;
 	}
-	/*
+	
 	public void run()
 	{
 		console.lancementPartie(partie.getJ1(), partie.getJ2());
-		while(!partie.isPartieFinie())
+		while(!partie.isGameOver())
 		{
 			console.lancementTour(partie.getTour(), partie.getJCourant(), partie.getGrille());
 			
@@ -32,5 +32,5 @@ public class Jeu {
 		}
 		console.closeScanner();
 		console.afficherFinPartie(partie);
-	}*/
+	}
 }

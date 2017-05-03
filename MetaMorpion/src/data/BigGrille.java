@@ -35,4 +35,14 @@ public class BigGrille{
 		if(cases[2].equals(s) && cases[4].equals(s) && cases[6].equals(s)) return s;
 		return Case.V;
 	}
+
+	public boolean isCoupPossible(int cas) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void ajouterCoup(int cas, Case symboleJ1) {
+		// TODO Auto-generated method stub
+		
+	}
 }
