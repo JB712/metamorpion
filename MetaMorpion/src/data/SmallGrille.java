@@ -1,6 +1,5 @@
 package data;
 
-import util.Constantes;
 import util.Constantes.*;
 
 public class SmallGrille{
