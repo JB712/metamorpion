@@ -61,4 +61,34 @@ public class Partie {
 		if(grille.getCase(big).isFull()) return false;
 		return true;
 	}
+
+
+	public BigGrille getGrille() {
+		return grille;
+	}
+
+	public int getEtatPartie() {
+		return etatPartie;
+	}
+		
+	/**
+	 * Renvoie un booleen qui dit si la partie est terminée.
+	 * Si la partie est terminée, met la variable etatPartie à jour.
+	 * @return
+	 */
+	public boolean isGameOver(){
+		if(grille.wintest(j1.getSymbole()).equals(j1.getSymbole())){
+			etatPartie = Constantes.VICTOIRE_JOUEUR_1;
+			return true;
+		}
+		if(grille.wintest(j2.getSymbole()).equals(j2.getSymbole())){
+			etatPartie = Constantes.VICTOIRE_JOUEUR_2;
+			return true;
+		}
+		if(tour == Constantes.NB_TOUR_MAX){
+			etatPartie = Constantes.MATCH_NUL;
+			return true;
+		}
+		return false;
+	}
 }

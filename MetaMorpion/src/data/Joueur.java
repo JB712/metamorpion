@@ -73,7 +73,7 @@ public abstract class Joueur {
 	 * @param tour
 	 * @return
 	 */
-	public abstract int joue(Grille grille, Console console, int tour);
+	public abstract int joue(BigGrille grille, Console console, int tour);
 	
 
 }

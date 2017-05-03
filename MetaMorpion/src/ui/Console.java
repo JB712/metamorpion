@@ -63,6 +63,13 @@ public class Console extends Thread {
 		System.out.println("Joueur 2 : "+joueur2.getNom()+" ("+joueur2.getTypeNom()+")");		
 	}
 	
+	public void lancementTour(int tour, Joueur joueurCourant, BigGrille grille)
+	{
+		System.out.println("************* Tour "+tour+" ************");
+		System.out.println("C'est à "+joueurCourant.getNom()+" de jouer !");
+		afficheGrille(grille);
+	}
+	
 	public static void afficheGrille(BigGrille tab) {
 		//String symbol = "V";
 		String s="";
@@ -93,6 +100,28 @@ public class Console extends Thread {
 			}
 		}
 		System.out.println(s);
+	}
+	
+	public void afficherFinPartie(Partie partie) {
+		String msg;
+		switch(partie.getEtatPartie())
+		{
+			case Constantes.VICTOIRE_JOUEUR_1 : 
+				msg="VICTOIRE "+partie.getJ1().getNom();
+				break;
+			case Constantes.VICTOIRE_JOUEUR_2 : 
+				msg="VICTOIRE "+partie.getJ2().getNom();
+				break;
+			default : 
+				msg="MATCH NUL";
+				break;
+		}
+		System.out.println("************ "+msg+" en "+(partie.getTour()-1)+" tours ***************");
+		afficheGrille(partie.getGrille());
+		System.out.println(partie.getJ1().getNom());
+		System.out.println(partie.getJ2().getNom());
+		System.out.println("******************************************************************");
+		
 	}
 	
 }
