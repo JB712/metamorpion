@@ -56,7 +56,7 @@ public class Partie {
 		return tour;
 	}
 	
-	public boolean isGrilleLibre(int big, int cas){
+	public boolean isGrilleLibre(int big){
 		if(grille.getCase(big).getEtat()!=Constantes.Case.V) return false;
 		if(grille.getCase(big).isFull()) return false;
 		return true;
@@ -91,27 +91,39 @@ public class Partie {
 		return false;
 	}
 
-	public boolean jouerCoup(int cas, long tempsReflexion) {
-		if(!grille.isCoupPossible(cas))
+	public boolean jouerCoupSimple(int cas, long tempsReflexion) {
+		// PREMIER COUP
+		// if isGrilleLibre = wrong ==> il faut demander 2 int (grille + case)
+
+		if(!grille.getCase(precedent).isCaseLibre(cas))	//pour la case. if wrong, juste redemander la case
 		{
 			return false;
 		}
-		
+
 		if(jCourant==j1)
 		{
-			grille.ajouterCoup(cas, Constantes.SYMBOLE_J1);
+			grille.ajouterCoup(cas, precedent , Constantes.SYMBOLE_J1);
 			//verificationFinPartie();
 			grille.wintest(Constantes.SYMBOLE_J1);
 			jCourant= j2;
 		}
 		else
 		{
-			grille.ajouterCoup(cas, Constantes.SYMBOLE_J2);
+			grille.ajouterCoup(cas, precedent, Constantes.SYMBOLE_J2);
 			//verificationFinPartie();
 			grille.wintest(Constantes.SYMBOLE_J2);
 			jCourant=j1;
 		}
 		tour++;
 		return true;
+	}
+
+	public int getPrecedent() {
+		return precedent;
+	}
+
+	public boolean jouerCoupDouble(int coup, long tempsReflexion) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

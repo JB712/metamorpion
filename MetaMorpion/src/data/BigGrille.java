@@ -36,12 +36,12 @@ public class BigGrille{
 		return Case.V;
 	}
 
-	public boolean isCoupPossible(int cas) {
+	public boolean isCoupPossible(int cas, int nbGrille) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public void ajouterCoup(int cas, Case symboleJ1) {
+	public void ajouterCoup(int cas, int nbGrille, Case symboleJ1) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -7,6 +7,7 @@ import data.Grille;
 import data.Humain;
 import data.Joueur;
 import data.Partie;
+import jeu.Jeu;
 import util.Constantes;
 import util.Constantes.Case;
 
@@ -22,8 +23,8 @@ public class Console extends Thread {
 		System.out.println("************* PUISSANCE 4 *************");
 		j1 = choixJoueur(Constantes.JOUEUR_1, entry);
 		j2 = choixJoueur(Constantes.JOUEUR_2, entry);		
-		//Jeu jeu = new Jeu(j1, j2, this);
-		//jeu.start();
+		Jeu jeu = new Jeu(j1, j2, this);
+		jeu.start();
 	}
 	
 	public void closeScanner()
@@ -122,6 +123,16 @@ public class Console extends Thread {
 		System.out.println(partie.getJ2().getNom());
 		System.out.println("******************************************************************");
 		
+	}
+	
+	public int getHumanCoup(String nom) {
+		System.out.print("Coup de "+nom+" : ");
+		return entry.nextInt();
+	}
+
+	public void reflexionIA(String nom)
+	{
+		System.out.println(nom+" réfléchit ...");
 	}
 	
 }
