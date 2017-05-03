@@ -17,6 +17,10 @@ public class SmallGrille{
 	public Case getEtat(){
 		return etat;
 	}
+	
+	public Case getCase(int small) {
+		return cases[small];
+	}
 
 	public Case wintest(Case s) {
 		for(int i=0; i<3; i++){
@@ -43,11 +47,6 @@ public class SmallGrille{
 			return s;
 		}
 		return Case.V;
-	}
-
-	public Case getCase(int big) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public boolean isFull(){
