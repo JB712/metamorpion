@@ -28,16 +28,17 @@ public class BigGrille{
 	public Case wintest(Case s) {
 		winCases(s);
 		for(int i=0; i<3; i++){
-			if(cases[3*i].equals(s)){		//Test des solutions en ligne
-				if(cases[3*i+1].equals(s) && cases[3*i+2].equals(s))return s;
+			if(cases[3*i].getEtat().equals(s)){		//Test des solutions en ligne
+				if(cases[3*i+1].getEtat().equals(s) && cases[3*i+2].getEtat().equals(s))return s;
 			}
-			if(cases[i].equals(s)){			//Test des solutions en colonne
-				if(cases[3+i].equals(s) && cases[6+i].equals(s)) return s;
+			if(cases[i].getEtat().equals(s)){			//Test des solutions en colonne
+				if(cases[3+i].getEtat().equals(s) && cases[6+i].getEtat().equals(s)) return s;
 			}
 		}
+		System.out.println("les diagonales");
 		//Test du reste = les diagonales
-		if(cases[0].equals(s) && cases[4].equals(s) && cases[8].equals(s)) return s;
-		if(cases[2].equals(s) && cases[4].equals(s) && cases[6].equals(s)) return s;
+		if(cases[0].equals(s) && cases[4].getEtat().equals(s) && cases[8].getEtat().equals(s)) return s;
+		if(cases[2].equals(s) && cases[4].getEtat().equals(s) && cases[6].getEtat().equals(s)) return s;
 		return Case.V;
 	}
 	

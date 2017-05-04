@@ -23,8 +23,7 @@ public class Partie {
 	 * Renvoie le joueur 1
 	 * @return Joueur joueur1
 	 */
-	public Joueur getJ1()
-	{
+	public Joueur getJ1(){
 		return j1;
 	}
 	
@@ -33,8 +32,7 @@ public class Partie {
 	 * @return Joueur joueur2
 	 */
 
-	public Joueur getJ2()
-	{
+	public Joueur getJ2(){
 		return j2;
 	}
 	
@@ -42,8 +40,7 @@ public class Partie {
 	 * Renvoie le joueur courant
 	 * @return Joueur
 	 */
-	public Joueur getJCourant()
-	{
+	public Joueur getJCourant(){
 		return jCourant;
 	}
 	
@@ -51,8 +48,7 @@ public class Partie {
 	 * Renvoie le numéro du tour actuel
 	 * @return
 	 */
-	public int getTour()
-	{
+	public int getTour(){
 		return tour;
 	}
 	
@@ -69,6 +65,10 @@ public class Partie {
 
 	public int getEtatPartie() {
 		return etatPartie;
+	}
+
+	public int getPrecedent() {
+		return precedent;
 	}
 
 	/**
@@ -113,6 +113,7 @@ public class Partie {
 			grille.wintest(Constantes.SYMBOLE_J2);
 			jCourant=j1;
 		}
+		precedent=cas;
 		tour++;
 		return true;
 	}
@@ -137,11 +138,8 @@ public class Partie {
 			grille.wintest(Constantes.SYMBOLE_J2);
 			jCourant=j1;
 		}
+		precedent=cas;
 		tour++;
 		return true;
-	}
-
-	public int getPrecedent() {
-		return precedent;
 	}
 }
