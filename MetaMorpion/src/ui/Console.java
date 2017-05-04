@@ -70,10 +70,10 @@ public class Console extends Thread {
 		System.out.println("Joueur 2 : "+joueur2.getNom()+" ("+joueur2.getTypeNom()+")");		
 	}
 	
-	public void lancementTour(int tour, Joueur joueurCourant, BigGrille grille)
+	public void lancementTour(int tour, Joueur jCourant, BigGrille grille)
 	{
 		System.out.println("************* Tour "+tour+" ************");
-		System.out.println("C'est à "+joueurCourant.getNom()+" de jouer !");
+		System.out.println("C'est à "+jCourant.getNom()+" ( "+jCourant.getSymbole()+" ) "+" de jouer !");
 		afficheGrille(grille);
 	}
 	
@@ -131,13 +131,13 @@ public class Console extends Thread {
 		
 	}
 	
-	public int getHumanCoup(String nom) {
-		System.out.print("Coup de "+nom+" : ");
+	public int getHumanCoup(String nom, Case cas) {
+		System.out.print("Coup de "+nom+" ( "+cas+" ) "+" : ");
 		return entry.nextInt();
 	}
 
-	public int getHuman2Coup(String nom) {
-		System.out.print("Coup de "+nom+". Choisissez votre grille : ");
+	public int getHuman2Coup(String nom, Case cas) {
+		System.out.print("Coup de "+nom+" ( "+cas+" ) "+". Choisissez votre grille : ");
 		return entry.nextInt();
 	}
 

@@ -35,7 +35,6 @@ public class BigGrille{
 				if(cases[3+i].getEtat().equals(s) && cases[6+i].getEtat().equals(s)) return s;
 			}
 		}
-		System.out.println("les diagonales");
 		//Test du reste = les diagonales
 		if(cases[0].equals(s) && cases[4].getEtat().equals(s) && cases[8].getEtat().equals(s)) return s;
 		if(cases[2].equals(s) && cases[4].getEtat().equals(s) && cases[6].getEtat().equals(s)) return s;

@@ -94,10 +94,9 @@ public class Partie {
 
 	public boolean jouerCoupSimple(int cas, long tempsReflexion) {
 		
-		if(!grille.getCase(precedent).isCaseLibre(cas))	//pour la case. if wrong, juste redemander la case
-		{
-			return false;
-		}
+		if(cas>8 || cas<0) return false;
+		
+		if(!grille.getCase(precedent).isCaseLibre(cas)) return false;
 
 		if(jCourant==j1)
 		{
@@ -119,20 +118,18 @@ public class Partie {
 	}
 
 	public boolean jouerCoupDouble(int bg, int cas, long tempsReflexion) {
-		if(!grille.isCoupPossible(bg, cas))
-		{
-			return false;
-		}
 		
-		if(jCourant==j1)
-		{
+		if(cas>8 || cas<0 || bg>8 || bg<0 ) return false;
+		
+		if(!grille.isCoupPossible(bg, cas)) return false;
+		
+		if(jCourant==j1){
 			grille.ajouterCoup(cas, bg , Constantes.SYMBOLE_J1);
 			//verificationFinPartie();
 			grille.wintest(Constantes.SYMBOLE_J1);
 			jCourant= j2;
 		}
-		else
-		{
+		else{
 			grille.ajouterCoup(cas, bg, Constantes.SYMBOLE_J2);
 			//verificationFinPartie();
 			grille.wintest(Constantes.SYMBOLE_J2);

@@ -26,14 +26,14 @@ public class Jeu extends Thread{
 			
 			long tempsReflexion=System.currentTimeMillis();
 			if(!partie.isGrilleLibre(partie.getPrecedent())){
-				int bg= partie.getJCourant().joue2(partie.getGrille(), console, partie.getTour());
-				int sg= partie.getJCourant().joue(partie.getGrille(), console, partie.getTour());
+				int bg= partie.getJCourant().joue2(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole());
+				int sg= partie.getJCourant().joue(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole());
 				if(!partie.jouerCoupDouble(bg, sg, tempsReflexion)){
 					System.out.println("COUP INVALIDE : Recommencez !");
 				}
 			}
 			else{
-				int coup= partie.getJCourant().joue(partie.getGrille(), console, partie.getTour());
+				int coup= partie.getJCourant().joue(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole());
 				tempsReflexion=System.currentTimeMillis()-tempsReflexion;
 				//console.afficherCoup(partie.getJCourant(), coup, tempsReflexion);     afficherCoup sert surtout dans le choix de l'IA
 				if(!partie.jouerCoupSimple(coup, tempsReflexion))
