@@ -57,6 +57,7 @@ public class Partie {
 	}
 	
 	public boolean isGrilleLibre(int big){
+		if(big>8 || big<0) return false;
 		if(grille.getCase(big).getEtat()!=Constantes.Case.V) return false;
 		if(grille.getCase(big).isFull()) return false;
 		return true;
