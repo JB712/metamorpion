@@ -20,6 +20,11 @@ public class SmallGrille{
 	public Case getCase(int small) {
 		return cases[small];
 	}
+	
+	public void setCase (int small, Case symbol){
+		cases[small] = symbol;
+		
+	}
 
 	public Case wintest(Case s) {
 		for(int i=0; i<3; i++){

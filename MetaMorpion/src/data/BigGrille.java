@@ -20,6 +20,10 @@ public class BigGrille{
 	public SmallGrille getCase(int cas){
 		return cases[cas];
 	}
+	
+	public void setCase(int cas, int bg, Case symbol){
+		cases[bg].setCase(cas, symbol);
+	}
 
 	public Case wintest(Case s) {
 		for(int i=0; i<3; i++){
@@ -51,8 +55,7 @@ public class BigGrille{
 		return true;
 	}
 
-	public void ajouterCoup(int cas, int nbGrille, Case symboleJ1) {
-		// TODO Auto-generated method stub
-		
+	public void ajouterCoup(int cas, int bg, Case symbol) {
+		this.setCase(cas, bg, symbol);	
 	}
 }
