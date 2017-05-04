@@ -23,8 +23,7 @@ public class Partie {
 	 * Renvoie le joueur 1
 	 * @return Joueur joueur1
 	 */
-	public Joueur getJ1()
-	{
+	public Joueur getJ1(){
 		return j1;
 	}
 	
@@ -33,8 +32,7 @@ public class Partie {
 	 * @return Joueur joueur2
 	 */
 
-	public Joueur getJ2()
-	{
+	public Joueur getJ2(){
 		return j2;
 	}
 	
@@ -42,8 +40,7 @@ public class Partie {
 	 * Renvoie le joueur courant
 	 * @return Joueur
 	 */
-	public Joueur getJCourant()
-	{
+	public Joueur getJCourant(){
 		return jCourant;
 	}
 	
@@ -51,12 +48,12 @@ public class Partie {
 	 * Renvoie le numéro du tour actuel
 	 * @return
 	 */
-	public int getTour()
-	{
+	public int getTour(){
 		return tour;
 	}
 	
 	public boolean isGrilleLibre(int big){
+		if(big>8 || big<0) return false;
 		if(grille.getCase(big).getEtat()!=Constantes.Case.V) return false;
 		if(grille.getCase(big).isFull()) return false;
 		return true;
@@ -68,6 +65,10 @@ public class Partie {
 
 	public int getEtatPartie() {
 		return etatPartie;
+	}
+
+	public int getPrecedent() {
+		return precedent;
 	}
 
 	/**
@@ -93,10 +94,9 @@ public class Partie {
 
 	public boolean jouerCoupSimple(int cas, long tempsReflexion) {
 		
-		if(!grille.getCase(precedent).isCaseLibre(cas))	//pour la case. if wrong, juste redemander la case
-		{
-			return false;
-		}
+		if(cas>8 || cas<0) return false;
+		
+		if(!grille.getCase(precedent).isCaseLibre(cas)) return false;
 
 		if(jCourant==j1)
 		{
@@ -112,35 +112,31 @@ public class Partie {
 			grille.wintest(Constantes.SYMBOLE_J2);
 			jCourant=j1;
 		}
+		precedent=cas;
 		tour++;
 		return true;
 	}
 
 	public boolean jouerCoupDouble(int bg, int cas, long tempsReflexion) {
-		if(!grille.isCoupPossible(bg, cas))
-		{
-			return false;
-		}
 		
-		if(jCourant==j1)
-		{
+		if(cas>8 || cas<0 || bg>8 || bg<0 ) return false;
+		
+		if(!grille.isCoupPossible(bg, cas)) return false;
+		
+		if(jCourant==j1){
 			grille.ajouterCoup(cas, bg , Constantes.SYMBOLE_J1);
 			//verificationFinPartie();
 			grille.wintest(Constantes.SYMBOLE_J1);
 			jCourant= j2;
 		}
-		else
-		{
+		else{
 			grille.ajouterCoup(cas, bg, Constantes.SYMBOLE_J2);
 			//verificationFinPartie();
 			grille.wintest(Constantes.SYMBOLE_J2);
 			jCourant=j1;
 		}
+		precedent=cas;
 		tour++;
 		return true;
-	}
-
-	public int getPrecedent() {
-		return precedent;
 	}
 }
