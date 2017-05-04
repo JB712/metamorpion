@@ -21,7 +21,7 @@ public class Jeu extends Thread{
 		{
 			console.lancementTour(partie.getTour(), partie.getJCourant(), partie.getGrille());
 			
-			// PREMIER COUP
+			// premier coup  ==> géré par l'initialisation de precedent dans Partie
 			// if isGrilleLibre = wrong ==> il faut demander 2 int (grille + case)
 			
 			long tempsReflexion=System.currentTimeMillis();

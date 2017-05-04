@@ -9,7 +9,7 @@ public class Partie {
 	private int tour;
 	private BigGrille grille;
 	private int etatPartie;
-	private int precedent;
+	private int precedent=-1;
 	
 	public Partie(Joueur joueur1, Joueur joueur2){
 		j1=joueur1;
