@@ -20,7 +20,7 @@ public class Console extends Thread {
 	{
 		Joueur j1,j2;
 		//Scanner entry = new Scanner(System.in);
-		System.out.println("************* PUISSANCE 4 *************");
+		System.out.println("************* Ten *************");
 		j1 = choixJoueur(Constantes.JOUEUR_1, entry);
 		j2 = choixJoueur(Constantes.JOUEUR_2, entry);		
 		Jeu jeu = new Jeu(j1, j2, this);
