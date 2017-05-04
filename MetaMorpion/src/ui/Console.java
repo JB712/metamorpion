@@ -15,6 +15,12 @@ import util.Constantes.Case;
 public class Console extends Thread {
 	
 	private Scanner entry;
+	
+	public Console()
+	{
+		super("console");
+		entry = new Scanner(System.in);
+	}
 
 	public void run()
 	{
