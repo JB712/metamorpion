@@ -84,9 +84,9 @@ public class Console extends Thread {
 			
 			for(int j=0;j<3;j++) // duplique 1 ligne de la bigGrille
 			{
-				for(int k=0;k<3;k++) //assemble les 3 premières lignes des smallGrille
+				for(int k=0;k<3;k++) // assemble les 3 premières lignes des smallGrille
 				{
-					for(int l=0;l<3;l++){ //crée la première ligne d'une smallGrille
+					for(int l=0;l<3;l++){ // crée la première ligne d'une smallGrille
 						//s+=" " + symbol + " ";
 						s += " ";
 						if(tab.getCase(3*i+k).getCase(3*j+l).equals(Case.V)){
