@@ -88,7 +88,14 @@ public class Console extends Thread {
 				{
 					for(int l=0;l<3;l++){ //crée la première ligne d'une smallGrille
 						//s+=" " + symbol + " ";
-						s += " " +tab.getCase(3*i+k).getCase(3*j+l) + " ";
+						s += " ";
+						if(tab.getCase(3*i+k).getCase(3*j+l).equals(Case.V)){
+							s+= " ";
+						}
+						else{
+							s+=tab.getCase(3*i+k).getCase(3*j+l);
+						}
+						s+= " ";
 						if (l != 2)
 							s+="|";
 					}
