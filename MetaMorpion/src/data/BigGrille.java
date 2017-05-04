@@ -22,6 +22,7 @@ public class BigGrille{
 	}
 
 	public Case wintest(Case s) {
+		winCases(s);
 		for(int i=0; i<3; i++){
 			if(cases[3*i].equals(s)){		//Test des solutions en ligne
 				if(cases[3*i+1].equals(s) && cases[3*i+2].equals(s))return s;
