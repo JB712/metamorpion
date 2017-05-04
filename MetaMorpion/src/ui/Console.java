@@ -130,6 +130,11 @@ public class Console extends Thread {
 		return entry.nextInt();
 	}
 
+	public int getHuman2Coup(String nom) {
+		System.out.print("Coup de "+nom+". Choisissez votre grille : ");
+		return entry.nextInt();
+	}
+
 	public void reflexionIA(String nom)
 	{
 		System.out.println(nom+" réfléchit ...");

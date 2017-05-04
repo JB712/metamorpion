@@ -93,10 +93,6 @@ public class Partie {
 
 	public boolean jouerCoupSimple(int cas, long tempsReflexion) {
 		
-		// commentaires suivants n'ont rien a faire ici :/
-		// PREMIER COUP
-		// if isGrilleLibre = wrong ==> il faut demander 2 int (grille + case)
-
 		if(!grille.getCase(precedent).isCaseLibre(cas))	//pour la case. if wrong, juste redemander la case
 		{
 			return false;
@@ -120,12 +116,31 @@ public class Partie {
 		return true;
 	}
 
-	public int getPrecedent() {
-		return precedent;
+	public boolean jouerCoupDouble(int bg, int cas, long tempsReflexion) {
+		if(!grille.isCoupPossible(bg, cas))
+		{
+			return false;
+		}
+		
+		if(jCourant==j1)
+		{
+			grille.ajouterCoup(cas, bg , Constantes.SYMBOLE_J1);
+			//verificationFinPartie();
+			grille.wintest(Constantes.SYMBOLE_J1);
+			jCourant= j2;
+		}
+		else
+		{
+			grille.ajouterCoup(cas, bg, Constantes.SYMBOLE_J2);
+			//verificationFinPartie();
+			grille.wintest(Constantes.SYMBOLE_J2);
+			jCourant=j1;
+		}
+		tour++;
+		return true;
 	}
 
-	public boolean jouerCoupDouble(int coup, long tempsReflexion) {
-		// TODO Auto-generated method stub
-		return false;
+	public int getPrecedent() {
+		return precedent;
 	}
 }

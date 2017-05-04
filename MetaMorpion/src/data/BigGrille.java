@@ -35,10 +35,20 @@ public class BigGrille{
 		if(cases[2].equals(s) && cases[4].equals(s) && cases[6].equals(s)) return s;
 		return Case.V;
 	}
+	
+	public void winCases(Case s){
+		for (SmallGrille sg : cases) {
+			sg.wintest(s);
+		}
+	}
 
-	public boolean isCoupPossible(int cas, int nbGrille) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isCoupPossible(int bg, int cas) {
+		//Pour la grille
+		if(this.getCase(bg).isFull()) return false;
+		if(!this.getCase(bg).getEtat().equals(Case.V)) return false;
+		//Pour la case
+		if(!this.getCase(bg).getCase(cas).equals(Case.V)) return false;
+		return true;
 	}
 
 	public void ajouterCoup(int cas, int nbGrille, Case symboleJ1) {

@@ -74,6 +74,8 @@ public abstract class Joueur {
 	 * @return
 	 */
 	public abstract int joue(BigGrille grille, Console console, int tour);
+
+	public abstract int joue2(BigGrille grille, Console console, int tour);
 	
 
 }
