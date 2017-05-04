@@ -36,8 +36,8 @@ public class BigGrille{
 			}
 		}
 		//Test du reste = les diagonales
-		if(cases[0].equals(s) && cases[4].getEtat().equals(s) && cases[8].getEtat().equals(s)) return s;
-		if(cases[2].equals(s) && cases[4].getEtat().equals(s) && cases[6].getEtat().equals(s)) return s;
+		if(cases[0].getEtat().equals(s) && cases[4].getEtat().equals(s) && cases[8].getEtat().equals(s)) return s;
+		if(cases[2].getEtat().equals(s) && cases[4].getEtat().equals(s) && cases[6].getEtat().equals(s)) return s;
 		return Case.V;
 	}
 	

@@ -139,7 +139,7 @@ public class Console extends Thread {
 	}
 	
 	public int getHumanCoup(String nom, Case cas) {
-		System.out.print("Coup de "+nom+" ( "+cas+" ) "+" : ");
+		System.out.print("Coup de "+nom+" ( "+cas+" ) "+". Choisissez votre case : ");
 		return entry.nextInt();
 	}
 
