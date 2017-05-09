@@ -5,6 +5,7 @@ import java.util.Scanner;
 import data.BigGrille;
 import data.Grille;
 import data.Humain;
+import data.IA;
 import data.Joueur;
 import data.Partie;
 import jeu.Jeu;
@@ -59,7 +60,27 @@ public class Console extends Thread {
 			nomJoueur= entry.nextLine();
 			joueur=new Humain(nomJoueur,order);
 		}
-		
+		else
+		{
+			nomJoueur=Constantes.IA_NAMES[(int)Math.floor(Math.random()*Constantes.IA_NAMES.length)];
+			
+			do{
+				System.out.println("Quel IA pour joueur "+order+" ("+nomJoueur+") ?");
+				for(int j=0; j<Constantes.IA_ALGOS.length; j++)
+				{
+					System.out.println((j+1)+") "+Constantes.IA_ALGOS[j]);
+					
+				}
+				System.out.print("Votre choix : ");
+				typeIA=entry.nextInt()-1;
+			}while(typeIA<0||typeIA>=Constantes.IA_ALGOS.length);
+			do{
+				System.out.println("Niveau de difficulté de l'IA ("+nomJoueur+") [1-10] ?");
+				System.out.print("Votre choix : ");
+				levelIA=entry.nextInt();
+			}while(levelIA<0||levelIA>Constantes.NB_TOUR_MAX);
+			joueur= new IA(nomJoueur, order, typeIA, levelIA);
+		}
 		return joueur;
 	}
 	

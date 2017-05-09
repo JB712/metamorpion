@@ -16,7 +16,7 @@ public abstract class Constantes {
 	
 	public static final String[] IA_ALGOS = {"Minimax", "Alpha-Beta"};
 	
-	public static final String[] IA_NAMES = {"HAL", "Skynet", "Ultron", "R2-D2", "Rick Deckard", "IDA"};
+	public static final String[] IA_NAMES = {"HAL", "Skynet", "Ultron", "R2-D2", "Rick Deckard", "IDA", "Turing machine"};
 	
 	/**
 	 * V = case vide
