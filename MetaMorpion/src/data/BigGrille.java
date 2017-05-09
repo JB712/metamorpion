@@ -1,5 +1,6 @@
 package data;
 
+import util.Constantes;
 import util.Constantes.Case;
 
 public class BigGrille{
@@ -11,6 +12,17 @@ public class BigGrille{
 		for (int i=0; i<9; i++){
 			cases[i]=new SmallGrille();
 		}
+	}
+	
+	public BigGrille(BigGrille bg){
+		for (int i=0; i<9; i++){
+			cases[i]=bg.getCase(i);
+		}
+	}
+	
+	public BigGrille clone(){
+		BigGrille copy = new BigGrille(this);
+		return copy;
 	}
 	
 	public BigGrille getGrille(){
@@ -58,5 +70,32 @@ public class BigGrille{
 
 	public void ajouterCoup(int cas, int bg, Case symbol) {
 		this.setCase(cas, bg, symbol);	
+	}
+	
+	public int evaluer(Case symboleJoueurCourant){
+		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
+		
+		//On regarde d'abord si la partie est terminée
+		switch(this.wintest(symboleJoueurCourant)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+		case Constantes.MATCH_NUL:
+			return 0;
+		case Constantes.VICTOIRE_JOUEUR_1:
+			return 100;
+		case Constantes.VICTOIRE_JOUEUR_2:
+			return 100;
+		default:
+			break;
+		}
+
+		switch(getEtatPartie(symboleAdverse, 1)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+		case Constantes.MATCH_NUL:
+			return 0;
+		case Constantes.VICTOIRE_JOUEUR_1:
+			return -100;
+		case Constantes.VICTOIRE_JOUEUR_2:
+			return -100;
+		default:
+			break;
+		}
 	}
 }
