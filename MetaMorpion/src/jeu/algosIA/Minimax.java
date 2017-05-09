@@ -38,7 +38,7 @@ public class Minimax extends Algorithm {
 				if (grilleDepart.isCoupPossible(i, j)) {
 					BigGrille grillebis = grilleDepart.clone();
 					grillebis.ajouterCoup(i,j, symboleMax);
-					double valeurCourante = min(party, grillebis, tourDepart);
+					double valeurCourante = min(part, grillebis, tourDepart);
 					if (valeurCourante > valeur) {
 						colonne.clear();
 						colonne.add(i);
