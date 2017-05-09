@@ -3,7 +3,6 @@ package ui;
 import java.util.Scanner;
 
 import data.BigGrille;
-import data.Grille;
 import data.Humain;
 import data.IA;
 import data.Joueur;
