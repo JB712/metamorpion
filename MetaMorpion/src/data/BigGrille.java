@@ -13,18 +13,18 @@ public class BigGrille{
 			cases[i]=new SmallGrille();
 		}
 	}
-	
+
 	public BigGrille(BigGrille bg){
 		for (int i=0; i<9; i++){
 			cases[i]=bg.getCase(i);
 		}
 	}
-	
+
 	public BigGrille clone(){
 		BigGrille copy = new BigGrille(this);
 		return copy;
 	}
-	
+
 	public BigGrille getGrille(){
 		return this;
 	}
@@ -32,7 +32,7 @@ public class BigGrille{
 	public SmallGrille getCase(int cas){
 		return cases[cas];
 	}
-	
+
 	public void setCase(int cas, int bg, Case symbol){
 		cases[bg].setCase(cas, symbol);
 	}
@@ -52,7 +52,7 @@ public class BigGrille{
 		if(cases[2].getEtat().equals(s) && cases[4].getEtat().equals(s) && cases[6].getEtat().equals(s)) return s;
 		return Case.V;
 	}
-	
+
 	public void winCases(Case s){
 		for (SmallGrille sg : cases) {
 			sg.wintest(s);
@@ -71,31 +71,33 @@ public class BigGrille{
 	public void ajouterCoup(int cas, int bg, Case symbol) {
 		this.setCase(cas, bg, symbol);	
 	}
-	
+
 	public int evaluer(Case symboleJoueurCourant){
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
-		
+		boolean matchnul = true;
+
 		//On regarde d'abord si la partie est terminée
-		switch(this.wintest(symboleJoueurCourant)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
-		case Constantes.MATCH_NUL:
-			return 0;
-		case Constantes.VICTOIRE_JOUEUR_1:
-			return 100;
-		case Constantes.VICTOIRE_JOUEUR_2:
-			return 100;
-		default:
-			break;
+		for (int i=0; i<9; i++) {
+			for(int j=0; j<9; j++){
+				if(isCoupPossible(i, j)){
+					matchnul = false;
+				}
+			}
 		}
 
-		switch(getEtatPartie(symboleAdverse, 1)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
-		case Constantes.MATCH_NUL:
+		if(matchnul){
 			return 0;
-		case Constantes.VICTOIRE_JOUEUR_1:
-			return -100;
-		case Constantes.VICTOIRE_JOUEUR_2:
-			return -100;
-		default:
-			break;
 		}
+		//Si le match n'est pas nul, on vérifie les victoires
+		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+			return 100;
+		}
+
+		if (this.wintest(symboleJoueurCourant).equals(symboleAdverse)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+			return -100;
+		}
+		
+		//Si la partie n'est pas terminée:
+		return 0;
 	}
 }

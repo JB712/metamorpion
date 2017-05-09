@@ -55,7 +55,7 @@ public class Minimax extends Algorithm {
 
 	private double min(Partie par,BigGrille grille, int tour) {
 		if (terminalTest(par, tour)) {
-			return grille.evaluer(symboleMax, tour);
+			return grille.evaluer(symboleMax);
 		}
 		else{
 
@@ -77,7 +77,7 @@ public class Minimax extends Algorithm {
 
 	private double max(Partie par, BigGrille grille,int tour) {
 		if (terminalTest(par, tour)) {
-			return grille.evaluer(symboleMax, tour);
+			return grille.evaluer(symboleMax);
 		}
 		else{
 			double valeur = Constantes.SCORE_MIN_NON_DEFINI;
