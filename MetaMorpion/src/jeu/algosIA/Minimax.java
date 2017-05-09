@@ -38,7 +38,7 @@ public class Minimax extends Algorithm {
 				if (grilleDepart.isCoupPossible(i, j)) {
 					BigGrille grillebis = grilleDepart.clone();
 					grillebis.ajouterCoup(i,j, symboleMax);
-					double valeurCourante = min(party, grillebis, tourDepart);
+					double valeurCourante = min(grillebis, tourDepart);
 					if (valeurCourante > valeur) {
 						colonne.clear();
 						colonne.add(i);
@@ -53,9 +53,9 @@ public class Minimax extends Algorithm {
 		return colonne.get(new Random().nextInt(colonne.size()));
 	}
 
-	private double min(Partie par,BigGrille grille, int tour) {
-		if (terminalTest(par, tour)) {
-			return grille.evaluer(symboleMax);
+	private double min(BigGrille bg, int tour) {
+		if (bg.getEtatPartie(symboleMin)!=Constantes.PARTIE_EN_COURS) {
+			return bg.evaluer(symboleMax);
 		}
 		else{
 
@@ -63,10 +63,10 @@ public class Minimax extends Algorithm {
 			double valeur = Constantes.SCORE_MAX_NON_DEFINI;
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++){
-					if (grille.isCoupPossible(i,j)){
-						BigGrille grillebis = grille.clone();
+					if (bg.isCoupPossible(i,j)){
+						BigGrille grillebis = bg.clone();
 						grillebis.ajouterCoup(i,j, symboleMin);
-						valeur = Math.min(valeur, this.max(par, grillebis, tour+1)); //tour ici sinon boucle infini avec min max min etc..
+						valeur = Math.min(valeur, this.max(grillebis, tour+1)); //tour ici sinon boucle infini avec min max min etc..
 					}
 				}
 			}
@@ -75,18 +75,18 @@ public class Minimax extends Algorithm {
 	}
 
 
-	private double max(Partie par, BigGrille grille,int tour) {
-		if (terminalTest(par, tour)) {
-			return grille.evaluer(symboleMax);
+	private double max(BigGrille bg,int tour) {
+		if (bg.getEtatPartie(symboleMax)!=Constantes.PARTIE_EN_COURS) {
+			return bg.evaluer(symboleMax);
 		}
 		else{
 			double valeur = Constantes.SCORE_MIN_NON_DEFINI;
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++){
-					if (grille.isCoupPossible(i,j)){
-						BigGrille grillebis = grille.clone();
+					if (bg.isCoupPossible(i,j)){
+						BigGrille grillebis = bg.clone();
 						grillebis.ajouterCoup(i,j, symboleMax);
-						valeur = Math.max(valeur, this.min(par, grillebis, tour+1)); 
+						valeur = Math.max(valeur, this.min(grillebis, tour+1)); 
 					}
 				}
 			}
