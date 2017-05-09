@@ -2,6 +2,7 @@ package jeu.algosIA;
 
 import data.BigGrille;
 import data.Joueur;
+import data.Partie;
 import util.Constantes;
 import util.Constantes.Case;
 
@@ -51,4 +52,14 @@ public abstract class Algorithm {
 	 */
 	public abstract int choisirCoup();
 	
+public boolean terminalTest(Partie par, int tour) {
+		
+		if (tour == tourMax)
+			return true;
+		
+		if (!par.isGameOver())
+			return true;
+		
+		return false;
+	}
 }

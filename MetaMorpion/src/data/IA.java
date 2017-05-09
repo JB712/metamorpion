@@ -48,14 +48,17 @@ public class IA extends Joueur {
 	}*/
 
 	@Override
+	//même code que ci-dessus
 	public int joue(BigGrille grille, Console console, int tour, Case cas) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
+	//même code que ci-dessus
 	public int joue2(BigGrille grille, Console console, int tour, Case cas) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 }
