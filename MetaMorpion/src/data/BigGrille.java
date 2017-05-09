@@ -32,6 +32,44 @@ public class BigGrille{
 	public SmallGrille getCase(int cas){
 		return cases[cas];
 	}
+	
+	public int getEtatPartie(Case symboleJoueurCourant){
+		int victoirec, victoirea;
+		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
+		boolean matchnul = true;
+		
+		for (int i=0; i<9; i++) {
+			for(int j=0; j<9; j++){
+				if(isCoupPossible(i, j)){
+					matchnul = false;
+				}
+			}
+		}
+		
+		if(symboleJoueurCourant==Constantes.SYMBOLE_J1)
+		{
+			victoirec=Constantes.VICTOIRE_JOUEUR_1;
+			victoirea=Constantes.VICTOIRE_JOUEUR_2;
+		}
+		else
+		{
+			victoirec=Constantes.VICTOIRE_JOUEUR_2;
+			victoirea=Constantes.VICTOIRE_JOUEUR_1;
+		}
+
+		if(matchnul){
+			return Constantes.MATCH_NUL;
+		}
+		//Si le match n'est pas nul, on vérifie les victoires
+		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+			return victoirec;
+		}
+
+		if (this.wintest(symboleJoueurCourant).equals(symboleAdverse)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+			return victoirea;
+		}
+		return Constantes.PARTIE_EN_COURS;
+	}
 
 	public void setCase(int cas, int bg, Case symbol){
 		cases[bg].setCase(cas, symbol);
