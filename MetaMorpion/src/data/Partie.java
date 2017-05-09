@@ -51,13 +51,6 @@ public class Partie {
 	public int getTour(){
 		return tour;
 	}
-	
-	public boolean isGrilleLibre(int big){
-		if(big>8 || big<0) return false;
-		if(grille.getCase(big).getEtat()!=Constantes.Case.V) return false;
-		if(grille.getCase(big).isFull()) return false;
-		return true;
-	}
 
 	public BigGrille getGrille() {
 		return grille;
@@ -70,11 +63,18 @@ public class Partie {
 	public int getPrecedent() {
 		return precedent;
 	}
+	
+	public boolean isGrilleLibre(int big){
+		if(big>8 || big<0) return false;
+		if(grille.getCase(big).getEtat()!=Constantes.Case.V) return false;
+		if(grille.getCase(big).isFull()) return false;
+		return true;
+	}
 
 	/**
-	 * Renvoie un booleen qui dit si la partie est terminée.
+	 * Met à jour l'état de la partie etatPartie
 	 * Si la partie est terminée, met la variable etatPartie à jour.
-	 * @return
+	 * @return un booleen qui dit si la partie est terminée.
 	 */
 	public boolean isGameOver(){
 		if(grille.wintest(j1.getSymbole()).equals(j1.getSymbole())){
