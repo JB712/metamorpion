@@ -173,4 +173,11 @@ public class Console extends Thread {
 		System.out.println(nom+" réfléchit ...");
 	}
 	
+	public void afficherCoupSimple(Joueur joueurCourant, int coup) {
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+"\n");
+	}
+	
+	public void afficherCoupDouble(Joueur joueurCourant, int bg, int sg) {
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg) + "\n");
+	}
 }
