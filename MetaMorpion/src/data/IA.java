@@ -49,7 +49,7 @@ public class IA extends Joueur {
 		return iA.choisirCoup();
 	}*/
 
-	@Override
+	//Doit renvoyer le numero de la case
 	public int joue(BigGrille grille, Console console, int tour, Case cas) {
 		console.reflexionIA(this.getNom());
 		Algorithm iA;
@@ -65,7 +65,7 @@ public class IA extends Joueur {
 		return iA.choisirCoup();
 	}
 
-	@Override
+	//Doit renvoyer le numero de la grille
 	public int joue2(BigGrille grille, Console console, int tour, Case cas) {
 		console.reflexionIA(this.getNom());
 		Algorithm iA;

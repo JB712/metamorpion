@@ -5,7 +5,6 @@ import java.util.Random;
 
 import data.BigGrille;
 import data.Joueur;
-import data.Partie;
 import util.Constantes;
 
 
