@@ -21,7 +21,7 @@ public class Minimax extends Algorithm {
 		
 		//System.out.println(grilleDepart.evaluer(symboleMax, tourDepart));
 		
-		ArrayList<Integer> colonne = new ArrayList<Integer>();
+		ArrayList<Integer> colonne = new ArrayList<Integer>(); //List<Coordonnees>     A CHANGER
 		
 		for (int i = 0; i < 9; i++){
 			for (int j = 0; j < 9; j++){
@@ -54,44 +54,42 @@ public class Minimax extends Algorithm {
 		return colonne.get(new Random().nextInt(colonne.size()));
 	}
 
-	private double min(BigGrille bg, int tour) {
-		if (bg.getEtatPartie(symboleMin)!=Constantes.PARTIE_EN_COURS) {
+	private double min(BigGrille bg, int profondeur) {
+		if (profondeur == 0 || bg.getEtatPartie(symboleMin)!=Constantes.PARTIE_EN_COURS) {
 			return bg.evaluer(symboleMax);
 		}
 		else{
-
-
-			double valeur = Constantes.SCORE_MAX_NON_DEFINI;
+			double min = Constantes.SCORE_MAX_NON_DEFINI;
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++){
 					if (bg.isCoupPossible(i,j)){
-						BigGrille grillebis = bg.clone();
-						grillebis.ajouterCoup(i,j, symboleMin);
-						valeur = Math.min(valeur, this.max(grillebis, tour+1)); //tour ici sinon boucle infini avec min max min etc..
+						BigGrille bg2 = bg.clone();
+						bg2.ajouterCoup(i,j, symboleMin);
+						min = Math.min(min, max(bg2, profondeur-1)); //tour ici sinon boucle infini avec min max min etc..
 					}
 				}
 			}
-			return valeur;
+			return min;
 		}
 	}
 
 
-	private double max(BigGrille bg,int tour) {
-		if (bg.getEtatPartie(symboleMax)!=Constantes.PARTIE_EN_COURS) {
+	private double max(BigGrille bg,int profondeur) {
+		if (profondeur == 0 || bg.getEtatPartie(symboleMax)!=Constantes.PARTIE_EN_COURS) {
 			return bg.evaluer(symboleMax);
 		}
 		else{
-			double valeur = Constantes.SCORE_MIN_NON_DEFINI;
+			double max = Constantes.SCORE_MIN_NON_DEFINI;
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++){
 					if (bg.isCoupPossible(i,j)){
-						BigGrille grillebis = bg.clone();
-						grillebis.ajouterCoup(i,j, symboleMax);
-						valeur = Math.max(valeur, this.min(grillebis, tour+1)); 
+						BigGrille bg2 = bg.clone();
+						bg2.ajouterCoup(i,j, symboleMax);
+						max = Math.max(max, this.min(bg2, profondeur-1)); 
 					}
 				}
 			}
-			return valeur;
+			return max;
 		}
 
 	}
