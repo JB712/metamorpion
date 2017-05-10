@@ -1,5 +1,7 @@
 package data;
 
+import jeu.algosIA.Algorithm;
+import jeu.algosIA.Minimax;
 import ui.Console;
 import util.Constantes;
 import util.Constantes.Case;
@@ -48,17 +50,35 @@ public class IA extends Joueur {
 	}*/
 
 	@Override
-	//même code que ci-dessus
 	public int joue(BigGrille grille, Console console, int tour, Case cas) {
-		// TODO Auto-generated method stub
-		return 0;
+		console.reflexionIA(this.getNom());
+		Algorithm iA;
+		if(algoIA==Constantes.IA_MINIMAX)
+		{
+			iA = new Minimax(levelIA,grille, this, tour);
+		}
+		else
+		{
+			//à remplacer par alpha-beta
+			iA = new Minimax(levelIA,grille, this, tour);
+		}
+		return iA.choisirCoup();
 	}
 
 	@Override
-	//même code que ci-dessus
 	public int joue2(BigGrille grille, Console console, int tour, Case cas) {
-		// TODO Auto-generated method stub
-		return 0;
+		console.reflexionIA(this.getNom());
+		Algorithm iA;
+		if(algoIA==Constantes.IA_MINIMAX)
+		{
+			iA = new Minimax(levelIA, grille, this, tour);
+		}
+		else
+		{
+			//à remplacer par alpha-beta
+			iA = new Minimax(levelIA,grille, this, tour);
+		}
+		return iA.choisirCoup();
 	}
 
 }
