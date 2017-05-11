@@ -1,8 +1,5 @@
 package jeu.algosIA;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import data.BigGrille;
 import data.Joueur;
 import util.Constantes;
