@@ -61,6 +61,7 @@ public class Minimax extends Algorithm {
 		else{
 			double min = Constantes.SCORE_MAX_NON_DEFINI;
 			for (int i = 0; i < 9; i++) {
+				
 				for (int j = 0; j < 9; j++){
 					if (bg.isCoupPossible(i,j)){
 						BigGrille bg2 = bg.clone();
