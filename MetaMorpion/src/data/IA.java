@@ -62,7 +62,7 @@ public class IA extends Joueur {
 			//à remplacer par alpha-beta
 			iA = new Minimax(levelIA,grille, this, tour);
 		}
-		return iA.choisirCoup();
+		return iA.choisirCoup(2);
 	}
 
 	//Doit renvoyer le numero de la grille
@@ -78,7 +78,7 @@ public class IA extends Joueur {
 			//à remplacer par alpha-beta
 			iA = new Minimax(levelIA,grille, this, tour);
 		}
-		return iA.choisirCoup();
+		return iA.choisirCoup(1);
 	}
 
 }

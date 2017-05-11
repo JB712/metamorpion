@@ -11,47 +11,54 @@ import util.Constantes;
 public class Minimax extends Algorithm {
 
 	public static int profondeur = 1;
+	int meilleurCoupG = Constantes.COUP_NON_DEFINI;
+	int meilleurCoupC = Constantes.COUP_NON_DEFINI;
 
 	public Minimax(int levelIA, BigGrille grilleDepart, Joueur joueurActuel, int tour) {
 		super(levelIA, grilleDepart, joueurActuel, tour);
 	}
 
-	@Override
-	public int choisirCoup() {
+	public int choisirCoup(int choix) {
 		
-		//System.out.println(grilleDepart.evaluer(symboleMax, tourDepart));
+		System.out.println(" Evaluation : "+grilleDepart.evaluer(symboleMax));
 		
-		ArrayList<Integer> colonne = new ArrayList<Integer>(); //List<Coordonnees>     A CHANGER
+		Thread[] threads = new Thread[Constantes.NB_TOUR_MAX];
 		
-		for (int i = 0; i < 9; i++){
-			for (int j = 0; j < 9; j++){
-				if (grilleDepart.isCoupPossible(i,j)){
-					colonne.add(i+1);
-				}
-			}
-		}
-		
-		double valeur = Constantes.SCORE_MIN_NON_DEFINI;
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++){
-				if (grilleDepart.isCoupPossible(i, j)) {
-					BigGrille grillebis = grilleDepart.clone();
-					grillebis.ajouterCoup(i,j, symboleMax);
+		for(int i=0; i<Constantes.NB_TOUR_MAX; i++){
+			int g = i/8;
+			int c = i%8;
+			threads[i]=new Thread(new Runnable() {
 
-					double valeurCourante = min(grillebis, tourDepart);
-					
-					if (valeurCourante > valeur) {
-						colonne.clear();
-						colonne.add(i);
-						valeur = valeurCourante;
-					}
-					if (valeurCourante == valeur){
-						colonne.add(i);
+				@Override
+				public void run() {
+					double temp;
+					double max = Constantes.SCORE_MAX_NON_DEFINI;
+					BigGrille bg2 = grilleDepart.clone();
+					if(bg2.isCoupPossible(g, c)){
+						bg2.ajouterCoup(c, g, symboleMax);
+						temp=(int)min(bg2,levelIA);
+						
+						if(temp>max){
+							max = temp;
+							meilleurCoupG = g;
+							meilleurCoupC = c;
+						}
 					}
 				}
+			});
+			threads[i].start();
+		}
+		
+		for (Thread t : threads){
+			try{
+				t.join();
+			} catch (InterruptedException e){
+				e.printStackTrace();
 			}
 		}
-		return colonne.get(new Random().nextInt(colonne.size()));
+		if(choix == 1) return meilleurCoupG;
+		else return meilleurCoupC;
+		
 	}
 
 	private double min(BigGrille bg, int profondeur) {

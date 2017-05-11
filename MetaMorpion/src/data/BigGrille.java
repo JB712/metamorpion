@@ -96,6 +96,13 @@ public class BigGrille{
 			sg.wintest(s);
 		}
 	}
+	
+	public boolean isGrilleLibre(int big){
+		if(big>8 || big<0) return false;
+		if(this.getCase(big).getEtat()!=Constantes.Case.V) return false;
+		if(this.getCase(big).isFull()) return false;
+		return true;
+	}
 
 	public boolean isCoupPossible(int bg, int cas) {
 		//Pour la grille
