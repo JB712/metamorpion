@@ -74,7 +74,7 @@ public class Console extends Thread {
 				typeIA=entry.nextInt()-1;
 			}while(typeIA<0||typeIA>=Constantes.IA_ALGOS.length);
 			do{
-				System.out.println("Niveau de difficultÃ© de l'IA ("+nomJoueur+") [1-10] ?");
+				System.out.println("Niveau de difficulté de l'IA ("+nomJoueur+") [1-10] ?");
 				System.out.print("Votre choix : ");
 				levelIA=entry.nextInt();
 			}while(levelIA<0||levelIA>Constantes.NB_TOUR_MAX);
@@ -85,7 +85,7 @@ public class Console extends Thread {
 	
 	public void lancementPartie(Joueur joueur1, Joueur joueur2)
 	{
-		System.out.println("************* DÃ©but de partie ************");
+		System.out.println("************* Début de partie ************");
 		System.out.println("Joueur 1 : "+joueur1.getNom()+" ("+joueur1.getTypeNom()+")");
 		System.out.println("Joueur 2 : "+joueur2.getNom()+" ("+joueur2.getTypeNom()+")");		
 	}
@@ -93,7 +93,7 @@ public class Console extends Thread {
 	public void lancementTour(int tour, Joueur jCourant, BigGrille grille)
 	{
 		System.out.println("************* Tour "+tour+" ************");
-		System.out.println("C'est Ã  "+jCourant.getNom()+" ( "+jCourant.getSymbole()+" ) "+" de jouer !");
+		System.out.println("C'est à  "+jCourant.getNom()+" ( "+jCourant.getSymbole()+" ) "+" de jouer !");
 		afficheGrille(grille);
 	}
 	
@@ -152,8 +152,8 @@ public class Console extends Thread {
 		}
 		System.out.println("************ "+msg+" en "+(partie.getTour()-1)+" tours ***************");
 		afficheGrille(partie.getGrille());
-		System.out.println(partie.getJ1().getNom());
-		System.out.println(partie.getJ2().getNom());
+		System.out.println("Joueur 1 :" + partie.getJ1().getNom());
+		System.out.println("Joueur 2 :" + partie.getJ2().getNom());
 		System.out.println("******************************************************************");
 		
 	}
@@ -170,7 +170,7 @@ public class Console extends Thread {
 
 	public void reflexionIA(String nom)
 	{
-		System.out.println(nom+" rÃ©flÃ©chit ...");
+		System.out.println(nom+" réfléchit ...");
 	}
 	
 	public void afficherCoupSimple(Joueur joueurCourant, int coup) {
