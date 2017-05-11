@@ -25,7 +25,7 @@ public class Jeu extends Thread{
 			// if isGrilleLibre = wrong ==> il faut demander 2 int (grille + case)
 			
 			long tempsReflexion=System.currentTimeMillis();
-			if(!partie.isGrilleLibre(partie.getPrecedent())){
+			if(!partie.getGrille().isGrilleLibre(partie.getPrecedent())){
 				int bg= partie.getJCourant().joue2(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole());
 				int sg= partie.getJCourant().joue(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole());
 				if(!partie.jouerCoupDouble(bg, sg, tempsReflexion)){
