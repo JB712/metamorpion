@@ -51,7 +51,7 @@ public abstract class Algorithm {
 	 * @param choix : 1 si on veut la grille optimale, 2 pour la case
 	 * @return le coup choisi pour la grille indiqué lors de l'instantiation de l'algo
 	 */
-	public abstract int choisirCoup(int choix);
+	public abstract int choisirCoup(int choix, int precedent);
 	
 public boolean terminalTest(Partie par, int tour) {
 		
