@@ -50,7 +50,7 @@ public class IA extends Joueur {
 	}*/
 
 	//Doit renvoyer le numero de la case
-	public int joue(BigGrille grille, Console console, int tour, Case cas) {
+	public int joue(BigGrille grille, Console console, int tour, Case cas, int precedent) {
 		console.reflexionIA(this.getNom());
 		Algorithm iA;
 		if(algoIA==Constantes.IA_MINIMAX)
@@ -62,11 +62,11 @@ public class IA extends Joueur {
 			//à remplacer par alpha-beta
 			iA = new Minimax(levelIA,grille, this, tour);
 		}
-		return iA.choisirCoup(2);
+		return iA.choisirCoup(2, precedent);
 	}
 
 	//Doit renvoyer le numero de la grille
-	public int joue2(BigGrille grille, Console console, int tour, Case cas) {
+	public int joue2(BigGrille grille, Console console, int tour, Case cas, int precedent) {
 		console.reflexionIA(this.getNom());
 		Algorithm iA;
 		if(algoIA==Constantes.IA_MINIMAX)
@@ -78,7 +78,7 @@ public class IA extends Joueur {
 			//à remplacer par alpha-beta
 			iA = new Minimax(levelIA,grille, this, tour);
 		}
-		return iA.choisirCoup(1);
+		return iA.choisirCoup(1, precedent);
 	}
 
 }

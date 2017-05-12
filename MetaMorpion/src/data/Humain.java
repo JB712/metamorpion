@@ -24,11 +24,11 @@ public class Humain extends Joueur {
 	 * Retourne un int scanné par la console, -& pour correspondre aux tableaux
 	 * @return int scanné-1
 	 */
-	public int joue(BigGrille grille, Console console, int tour, Case cas) {
+	public int joue(BigGrille grille, Console console, int tour, Case cas, int precedent) {
 		return (console.getHumanCoup(this.getNom(), cas)-1);
 	}
 	
-	public int joue2(BigGrille grille, Console console, int tour, Case cas) {
+	public int joue2(BigGrille grille, Console console, int tour, Case cas, int precedent) {
 		return (console.getHuman2Coup(this.getNom(), cas)-1);
 	}
 

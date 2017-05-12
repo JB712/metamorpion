@@ -49,6 +49,7 @@ public abstract class Algorithm {
 	/**
 	 * Lancement de l'algorithme de Jeu
 	 * @param choix : 1 si on veut la grille optimale, 2 pour la case
+	 * @param precedent : le coup précédent, pour savoir s'il doit choisir juste une case ou toute la grille
 	 * @return le coup choisi pour la grille indiquÃ© lors de l'instantiation de l'algo
 	 */
 	public abstract int choisirCoup(int choix, int precedent);

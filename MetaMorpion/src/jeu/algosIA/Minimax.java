@@ -21,75 +21,80 @@ public class Minimax extends Algorithm {
 
 		if(!grilleDepart.isGrilleLibre(precedent)){		//Si le joueur choisis la grille et la case
 
-			Thread[] threads = new Thread[Constantes.NB_TOUR_MAX];
+			if(!grilleDepart.isGrilleLibre(precedent)){		//Si le joueur choisis la grille et la case
 
-			for(int i=0; i<Constantes.NB_TOUR_MAX; i++){
-				int g = i/8;
-				int c = i%8;
-				threads[i]=new Thread(new Runnable() {
+				Thread[] threads = new Thread[Constantes.NB_TOUR_MAX];
 
-					@Override
-					public void run() {
-						double temp;
-						double max = Constantes.SCORE_MAX_NON_DEFINI;
-						BigGrille bg2 = grilleDepart.clone();
-						if(bg2.isCoupPossible(g, c)){
-							bg2.ajouterCoup(c, g, symboleMax);
-							temp=(int)min(bg2,levelIA,g);
+				for(int i=0; i<Constantes.NB_TOUR_MAX; i++){
+					int g = i/8;
+					int c = i%8;
+					threads[i]=new Thread(new Runnable() {
 
-							if(temp>max){
-								max = temp;
-								meilleurCoupG = g;
-								meilleurCoupC = c;
+						@Override
+						public void run() {
+							double temp;
+							double max = Constantes.SCORE_MAX_NON_DEFINI;
+							BigGrille bg2 = grilleDepart.clone();
+							if(bg2.isCoupPossible(g, c)){
+								bg2.ajouterCoup(c, g, symboleMax);
+								temp=(int)min(bg2,levelIA,g);
+
+								if(temp>max){
+									max = temp;
+									meilleurCoupG = g;
+									meilleurCoupC = c;
+								}
 							}
 						}
-					}
-				});
-				threads[i].start();
-			}
+					});
+					threads[i].start();
 
-			for (Thread t : threads){
-				try{
-					t.join();
-				} catch (InterruptedException e){
-					e.printStackTrace();
-				}
-			}
-		}
-		else{		//Si le joueur ne choisis que la case
-			Thread[] threads = new Thread[9];
 
-			for(int i=0; i<9; i++){
-				final int c=i;
-				threads[i]=new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						double temp;
-						double max = Constantes.SCORE_MAX_NON_DEFINI;
-						BigGrille bg2 = grilleDepart.clone();
-						if(bg2.isCoupPossible(precedent, c)){
-							bg2.ajouterCoup(c, precedent, symboleMax);
-							temp=(int)min(bg2,levelIA,precedent);
-
-							if(temp>max){
-								max = temp;
-								meilleurCoupG = precedent;
-								meilleurCoupC = c;
-							}
+					for (Thread t : threads){
+						try{
+							t.join();
+						} catch (InterruptedException e){
+							e.printStackTrace();
 						}
 					}
-				});
-				threads[i].start();
-			}
+				}
+			}else{		//Si le joueur ne choisis que la case
+				Thread[] threads = new Thread[9];
 
-			for (Thread t : threads){
-				try{
-					t.join();
-				} catch (InterruptedException e){
-					e.printStackTrace();
+				for(int i=0; i<9; i++){
+					final int c=i;
+					threads[i]=new Thread(new Runnable(){
+
+						@Override
+						public void run() {
+							double temp;
+							double max = Constantes.SCORE_MAX_NON_DEFINI;
+							BigGrille bg2 = grilleDepart.clone();
+							if(bg2.isCoupPossible(precedent, c)){
+								bg2.ajouterCoup(c, precedent, symboleMax);
+								temp=(int)min(bg2,levelIA,precedent);
+
+								if(temp>max){
+									max = temp;
+									meilleurCoupG = precedent;
+									meilleurCoupC = c;
+								}
+							}
+						}
+					});
+					threads[i].start();
+					
+					for (Thread t : threads){
+						try{
+							t.join();
+						} catch (InterruptedException e){
+							e.printStackTrace();
+						}
+					}
 				}
 			}
+
+			
 		}
 		if(choix == 1) return meilleurCoupG;
 		else return meilleurCoupC;
