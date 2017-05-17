@@ -7,97 +7,197 @@ import util.Constantes;
 
 public class Minimax extends Algorithm {
 
-	public static int profondeur = 1;
-	int meilleurCoupG = Constantes.COUP_NON_DEFINI;
-	int meilleurCoupC = Constantes.COUP_NON_DEFINI;
 
 	public Minimax(int levelIA, BigGrille grilleDepart, Joueur joueurActuel, int tour) {
 		super(levelIA, grilleDepart, joueurActuel, tour);
 	}
 
-	public int choisirCoup(int choix, int precedent) {
+	public Coup choisirCoup()
+	{
+		Coup meilleurCoup=new Coup(0,0);
+		Thread[] threads = new Thread[9];
+
+		for (int i=0;i<9;i++)
+		{
+			final int g=i;
+			threads[i]=new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					for (int c=0;c<9;c++)
+					{
+						if(true){ //mettre condition sur la grille
+							double temp;
+							double max = Constantes.SCORE_MAX_NON_DEFINI;
+							BigGrille bg2 = grilleDepart.clone();
+							if(bg2.isCoupPossible(new Coup(g, c)))
+							{
+								bg2.ajouterCoup(new Coup(g, c), symboleMax);
+								temp=(int)min(bg2,tourDepart);
+
+								if(temp>max)
+								{
+									max = temp;
+									meilleurCoup.setGrille(g);
+									meilleurCoup.setC(c);
+								}
+							}
+						}
+					}
+				}
+			});
+			threads[i].start();
+		}
+
+		for (Thread t : threads)
+		{
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return meilleurCoup;
+	}
+
+	public double min(BigGrille g, int tour)
+	{
+		if(tour == tourMax || g.getEtatPartie(symboleMax)!=Constantes.PARTIE_EN_COURS)
+		{
+			return g.evaluer(symboleMax)/*-profondeur*/;
+		}
+
+		double min = Constantes.SCORE_MIN_NON_DEFINI;
+		double temp;
+
+		for(int i=0;i<9;i++)
+		{
+			int grille=i;
+			for (int j=0;j<9;j++)
+			{
+				BigGrille bg2 = g.clone();
+				if(bg2.isCoupPossible(new Coup(grille, j)))
+				{
+					bg2.ajouterCoup(new Coup(grille, j), symboleMin);
+					temp=(int)min(bg2,tour+1);
+
+					if(temp < min)
+					{
+						min = temp;
+					}
+				}
+			}
+		}
+		return min;
+	}
+
+	double max(BigGrille g, int tour){
+		if(tour == tourMax || g.getEtatPartie(symboleMin)!=Constantes.PARTIE_EN_COURS)
+		{
+			return g.evaluer(symboleMax)/*+profondeur*/;
+		}
+
+		double max = Constantes.SCORE_MAX_NON_DEFINI;
+		double temp;
+
+		for(int i=0;i<9;i++)
+		{
+			int grille=i;
+			for (int j=0;j<9;j++)
+			{
+				BigGrille bg2 = g.clone();
+				if(bg2.isCoupPossible(new Coup(grille, j)))
+				{
+					bg2.ajouterCoup(new Coup(grille, j), symboleMax);
+					temp=(int)min(bg2,tour+1);
+
+					if(temp > max)
+					{
+						max = temp;
+					}
+				}
+			}
+		}
+		return max;
+	}
+
+	/*public int choisirCoup(int choix, int precedent) {
 
 		System.out.println(" Evaluation : "+grilleDepart.evaluer(symboleMax));
 
 		if(!grilleDepart.isGrilleLibre(precedent)){		//Si le joueur choisis la grille et la case
 
-			if(!grilleDepart.isGrilleLibre(precedent)){		//Si le joueur choisis la grille et la case
 
-				Thread[] threads = new Thread[Constantes.NB_TOUR_MAX];
+			for(int i=0; i<Constantes.NB_TOUR_MAX; i++){
+				int g = i/8;
+				int c = i%8;
+				threads[i]=new Thread(new Runnable() {
 
-				for(int i=0; i<Constantes.NB_TOUR_MAX; i++){
-					int g = i/8;
-					int c = i%8;
-					threads[i]=new Thread(new Runnable() {
+					@Override
+					public void run() {
+						double temp;
+						double max = Constantes.SCORE_MAX_NON_DEFINI;
+						BigGrille bg2 = grilleDepart.clone();
+						if(bg2.isCoupPossible(g, c)){
+							bg2.ajouterCoup(c, g, symboleMax);
+							temp=(int)min(bg2,levelIA,g);
 
-						@Override
-						public void run() {
-							double temp;
-							double max = Constantes.SCORE_MAX_NON_DEFINI;
-							BigGrille bg2 = grilleDepart.clone();
-							if(bg2.isCoupPossible(g, c)){
-								bg2.ajouterCoup(c, g, symboleMax);
-								temp=(int)min(bg2,levelIA,g);
-
-								if(temp>max){
-									max = temp;
-									meilleurCoupG = g;
-									meilleurCoupC = c;
-								}
+							if(temp>max){
+								max = temp;
+								meilleurCoupG = g;
+								meilleurCoupC = c;
 							}
 						}
-					});
-					threads[i].start();
-
-
-					for (Thread t : threads){
-						try{
-							t.join();
-						} catch (InterruptedException e){
-							e.printStackTrace();
-						}
 					}
-				}
-			}else{		//Si le joueur ne choisis que la case
-				Thread[] threads = new Thread[9];
+				});
+				threads[i].start();
+			}
 
-				for(int i=0; i<9; i++){
-					final int c=i;
-					threads[i]=new Thread(new Runnable(){
-
-						@Override
-						public void run() {
-							double temp;
-							double max = Constantes.SCORE_MAX_NON_DEFINI;
-							BigGrille bg2 = grilleDepart.clone();
-							if(bg2.isCoupPossible(precedent, c)){
-								bg2.ajouterCoup(c, precedent, symboleMax);
-								temp=(int)min(bg2,levelIA,precedent);
-
-								if(temp>max){
-									max = temp;
-									meilleurCoupG = precedent;
-									meilleurCoupC = c;
-								}
-							}
-						}
-					});
-					threads[i].start();
-					
-					for (Thread t : threads){
-						try{
-							t.join();
-						} catch (InterruptedException e){
-							e.printStackTrace();
-						}
-					}
+			for (Thread t : threads){
+				try{
+					t.join();
+				} catch (InterruptedException e){
+					e.printStackTrace();
 				}
 			}
 
-			
+		}else{		//Si le joueur ne choisis que la case
+			Thread[] threads = new Thread[9];
+
+			for(int i=0; i<9; i++){
+				final int c=i;
+				threads[i]=new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						double temp;
+						double max = Constantes.SCORE_MAX_NON_DEFINI;
+						BigGrille bg2 = grilleDepart.clone();
+						if(bg2.isCoupPossible(precedent, c)){
+							bg2.ajouterCoup(c, precedent, symboleMax);
+							temp=(int)min(bg2,levelIA,precedent);
+
+							if(temp>max){
+								max = temp;
+								meilleurCoupG = precedent;
+								meilleurCoupC = c;
+							}
+						}
+					}
+				});
+				threads[i].start();
+			}
+			for (Thread t : threads){
+				try{
+					t.join();
+				} catch (InterruptedException e){
+					e.printStackTrace();
+				}
+			}
 		}
-		if(choix == 1) return meilleurCoupG;
-		else return meilleurCoupC;
+		if(choix == 1) return meilleurCoupG+1;
+		else return meilleurCoupC+1;
 	}
 
 	private double min(BigGrille bg, int profondeur, int precedent) {
@@ -147,16 +247,16 @@ public class Minimax extends Algorithm {
 					}
 				}
 			}else{
-					for (int j = 0; j < 9; j++){
-						if (bg.isCoupPossible(precedent,j)){
-							BigGrille bg2 = bg.clone();
-							bg2.ajouterCoup(j, precedent, symboleMax);
-							max = Math.max(max, this.min(bg2, profondeur-1, j)); 
-						}
+				for (int j = 0; j < 9; j++){
+					if (bg.isCoupPossible(precedent,j)){
+						BigGrille bg2 = bg.clone();
+						bg2.ajouterCoup(j, precedent, symboleMax);
+						max = Math.max(max, this.min(bg2, profondeur-1, j)); 
 					}
 				}
+			}
 			return max;
 		}
 
-	}
+	}*/
 }

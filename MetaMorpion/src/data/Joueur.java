@@ -1,5 +1,6 @@
 package data;
 
+import jeu.algosIA.Coup;
 import ui.Console;
 import util.Constantes;
 import util.Constantes.Case;
@@ -75,7 +76,7 @@ public abstract class Joueur {
 	 * @param precedent
 	 * @return
 	 */
-	public abstract int joue(BigGrille grille, Console console, int tour, Case cas, int precedent);
+	public abstract Coup joue(BigGrille grille, Console console, int tour, Case cas);
 
 	/**
 	 * Fais jouer un tour "grille" au joueur

@@ -1,6 +1,7 @@
 package jeu;
 
 import data.*;
+import jeu.algosIA.Coup;
 import ui.*;
 
 public class Jeu extends Thread{
@@ -25,11 +26,20 @@ public class Jeu extends Thread{
 			// if isGrilleLibre = wrong ==> il faut demander 2 int (grille + case)
 			
 			long tempsReflexion=System.currentTimeMillis();
+			Coup coup=partie.getJCourant().joue(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole());
+			tempsReflexion=System.currentTimeMillis()-tempsReflexion;
+			console.afficherCoup(partie.getJCourant(), coup);     //afficherCoup sert surtout dans le choix de l'IA
+			if(!partie.jouerCoup(coup, tempsReflexion))
+			{
+				System.out.println("COUP INVALIDE : Recommencez !");
+			}
+			
+			/*long tempsReflexion=System.currentTimeMillis();
 			if(!partie.getGrille().isGrilleLibre(partie.getPrecedent())){
-				int bg= partie.getJCourant().joue2(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole(), partie.getPrecedent());
-				int sg= partie.getJCourant().joue(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole(), partie.getPrecedent());
-				console.afficherCoupDouble(partie.getJCourant(), bg, sg);    
-				if(!partie.jouerCoupDouble(bg, sg, tempsReflexion)){
+				Coup c = partie.getJCourant().joue(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole());
+				console.afficherCoupDouble(partie.getJCourant(), c.getGrille(), c.getC());    
+				if(!partie.jouerCoupDouble(c.getGrille(), c.getC(), tempsReflexion))
+				{
 					System.out.println("COUP INVALIDE : Recommencez !");
 				}
 			}
@@ -41,7 +51,7 @@ public class Jeu extends Thread{
 				{
 					System.out.println("COUP INVALIDE : Recommencez !");
 				}
-			}
+			}*/
 		}
 		console.closeScanner();
 		console.afficherFinPartie(partie);

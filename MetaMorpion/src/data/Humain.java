@@ -1,5 +1,6 @@
 package data;
 
+import jeu.algosIA.Coup;
 import ui.Console;
 import util.Constantes;
 import util.Constantes.Case;
@@ -24,8 +25,8 @@ public class Humain extends Joueur {
 	 * Retourne un int scanné par la console, -& pour correspondre aux tableaux
 	 * @return int scanné-1
 	 */
-	public int joue(BigGrille grille, Console console, int tour, Case cas, int precedent) {
-		return (console.getHumanCoup(this.getNom(), cas)-1);
+	public Coup joue(BigGrille grille, Console console, int tour, Case cas) {
+		return (console.getHumanCoup(grille,this.getNom(), cas));
 	}
 	
 	public int joue2(BigGrille grille, Console console, int tour, Case cas, int precedent) {

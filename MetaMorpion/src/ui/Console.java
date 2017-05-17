@@ -8,14 +8,15 @@ import data.IA;
 import data.Joueur;
 import data.Partie;
 import jeu.Jeu;
+import jeu.algosIA.Coup;
 import util.Constantes;
 import util.Constantes.Case;
 
 
 public class Console extends Thread {
-	
+
 	private Scanner entry;
-	
+
 	public Console()
 	{
 		super("console");
@@ -32,7 +33,7 @@ public class Console extends Thread {
 		Jeu jeu = new Jeu(j1, j2, this);
 		jeu.start();
 	}
-	
+
 	public void closeScanner()
 	{
 		entry.close();
@@ -62,13 +63,13 @@ public class Console extends Thread {
 		else
 		{
 			nomJoueur=Constantes.IA_NAMES[(int)Math.floor(Math.random()*Constantes.IA_NAMES.length)];
-			
+
 			do{
 				System.out.println("Quel IA pour joueur "+order+" ("+nomJoueur+") ?");
 				for(int j=0; j<Constantes.IA_ALGOS.length; j++)
 				{
 					System.out.println((j+1)+") "+Constantes.IA_ALGOS[j]);
-					
+
 				}
 				System.out.print("Votre choix : ");
 				typeIA=entry.nextInt()-1;
@@ -82,26 +83,26 @@ public class Console extends Thread {
 		}
 		return joueur;
 	}
-	
+
 	public void lancementPartie(Joueur joueur1, Joueur joueur2)
 	{
 		System.out.println("************* Début de partie ************");
 		System.out.println("Joueur 1 : "+joueur1.getNom()+" ("+joueur1.getTypeNom()+")");
 		System.out.println("Joueur 2 : "+joueur2.getNom()+" ("+joueur2.getTypeNom()+")");		
 	}
-	
+
 	public void lancementTour(int tour, Joueur jCourant, BigGrille grille)
 	{
 		System.out.println("************* Tour "+tour+" ************");
 		System.out.println("C'est à  "+jCourant.getNom()+" ( "+jCourant.getSymbole()+" ) "+" de jouer !");
 		afficheGrille(grille);
 	}
-	
+
 	public static void afficheGrille(BigGrille tab) {
 		//String symbol = "V";
 		String s="";
 		for(int i=0; i<3; i++){ // crée la méta grille
-			
+
 			for(int j=0;j<3;j++) // duplique 1 ligne de la bigGrille
 			{
 				for(int k=0;k<3;k++) // assemble les 3 premières lignes des smallGrille
@@ -125,42 +126,53 @@ public class Console extends Thread {
 				s+="\n";
 				if (j != 2){
 					s+="----------  ||  ---------  ||  ----------";
-				    s+="\n";
+					s+="\n";
 				}
 			}
 			if (i != 2){
 				s+="=========================================";
-			    s+="\n";
+				s+="\n";
 			}
 		}
 		System.out.println(s);
 	}
-	
+
 	public void afficherFinPartie(Partie partie) {
 		String msg;
 		switch(partie.getEtatPartie())
 		{
-			case Constantes.VICTOIRE_JOUEUR_1 : 
-				msg="VICTOIRE "+partie.getJ1().getNom();
-				break;
-			case Constantes.VICTOIRE_JOUEUR_2 : 
-				msg="VICTOIRE "+partie.getJ2().getNom();
-				break;
-			default : 
-				msg="MATCH NUL";
-				break;
+		case Constantes.VICTOIRE_JOUEUR_1 : 
+			msg="VICTOIRE "+partie.getJ1().getNom();
+			break;
+		case Constantes.VICTOIRE_JOUEUR_2 : 
+			msg="VICTOIRE "+partie.getJ2().getNom();
+			break;
+		default : 
+			msg="MATCH NUL";
+			break;
 		}
 		System.out.println("************ "+msg+" en "+(partie.getTour()-1)+" tours ***************");
 		afficheGrille(partie.getGrille());
 		System.out.println("Joueur 1 :" + partie.getJ1().getNom());
 		System.out.println("Joueur 2 :" + partie.getJ2().getNom());
 		System.out.println("******************************************************************");
-		
+
 	}
-	
-	public int getHumanCoup(String nom, Case cas) {
+
+	public Coup getHumanCoup(BigGrille g, String nom, Case cas) {
+		int grille;
+		if (g.isGrilleLibre(g.getCoupPrecedent()))
+		{
+			grille=g.getCoupPrecedent();
+		}
+		else
+		{
+			System.out.print("Coup de "+nom+" ( "+cas+" ) "+". Choisissez votre grille : ");
+			grille=entry.nextInt()-1;
+		}
 		System.out.print("Coup de "+nom+" ( "+cas+" ) "+". Choisissez votre case : ");
-		return entry.nextInt();
+		int c=entry.nextInt()-1;
+		return new Coup(grille, c);
 	}
 
 	public int getHuman2Coup(String nom, Case cas) {
@@ -172,12 +184,16 @@ public class Console extends Thread {
 	{
 		System.out.println(nom+" réfléchit ...");
 	}
-	
+
 	public void afficherCoupSimple(Joueur joueurCourant, int coup) {
 		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+"\n");
 	}
-	
+
 	public void afficherCoupDouble(Joueur joueurCourant, int bg, int sg) {
 		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg) + "\n");
+	}
+
+	public void afficherCoup(Joueur joueurCourant, Coup coup) {
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1) + "\n");
 	}
 }

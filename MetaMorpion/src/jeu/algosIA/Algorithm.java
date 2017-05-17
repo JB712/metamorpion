@@ -52,7 +52,7 @@ public abstract class Algorithm {
 	 * @param precedent : le coup précédent, pour savoir s'il doit choisir juste une case ou toute la grille
 	 * @return le coup choisi pour la grille indiquÃ© lors de l'instantiation de l'algo
 	 */
-	public abstract int choisirCoup(int choix, int precedent);
+	public abstract Coup choisirCoup();
 	
 public boolean terminalTest(Partie par, int tour) {
 		
