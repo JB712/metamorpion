@@ -25,4 +25,8 @@ public class Coup {
 	public void setC(int c) {
 		this.c = c;
 	}
+	
+	public String toString(){
+		return "("+(grille+1)+";"+(c+1)+") ";
+	}
 }

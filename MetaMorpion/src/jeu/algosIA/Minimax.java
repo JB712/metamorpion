@@ -65,7 +65,10 @@ public class Minimax extends Algorithm {
 				e.printStackTrace();
 			}
 		}
-
+		System.out.println("Les meilleurs coups sont : ");
+		for (Coup coup : meilleursCoups) {
+			System.out.println(coup);
+		}
 		return meilleursCoups.get(new Random().nextInt(meilleursCoups.size()));
 	}
 
