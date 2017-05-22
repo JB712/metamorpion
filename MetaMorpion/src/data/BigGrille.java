@@ -41,7 +41,7 @@ public class BigGrille{
 	}
 
 	public int getEtatPartie(Case symboleJoueurCourant){
-		int victoirec, victoirea; //Pourra être simplifiée ....
+		int victoirec, victoirea; //Pourra être simplifiée .... + c = courant et a = adversaire
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
 		boolean matchnul = true;
 
@@ -190,4 +190,5 @@ public class BigGrille{
 		//Si la partie n'est pas terminée:
 		return 0;
 	}
+	
 }
