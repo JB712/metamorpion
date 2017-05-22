@@ -1,5 +1,11 @@
 package jeu.algosIA;
 
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import data.BigGrille;
 import data.Joueur;
 import util.Constantes;
@@ -12,9 +18,11 @@ public class Minimax extends Algorithm {
 		super(levelIA, grilleDepart, joueurActuel, tour);
 	}
 
+	private double max=-100000;
+
 	public Coup choisirCoup()
 	{
-		Coup meilleurCoup=new Coup(0,0);
+		List<Coup> meilleursCoups=new ArrayList<>();
 		Thread[] threads = new Thread[9];
 
 		for (int i=0;i<9;i++)
@@ -26,21 +34,21 @@ public class Minimax extends Algorithm {
 				public void run() {
 					for (int c=0;c<9;c++)
 					{
-						if(true){		//mettre condition sur la grille
+						if(grilleDepart.isCoupPossible(new Coup(g,c))){ 
 							double temp;
-							double max = Constantes.SCORE_MAX_NON_DEFINI;
 							BigGrille bg2 = grilleDepart.clone();
-							if(bg2.isCoupPossible(new Coup(g, c)))
-							{
-								bg2.ajouterCoup(new Coup(g, c), symboleMax);
-								temp=(int)min(bg2,tourDepart);
+							bg2.ajouterCoup(new Coup(g, c), symboleMax);
+							temp=(int)min(bg2,tourDepart);
 
-								if(temp>max)
-								{
-									max = temp;
-									meilleurCoup.setGrille(g);
-									meilleurCoup.setC(c);
-								}
+							if (temp==max)
+							{
+								meilleursCoups.add(new Coup(g,c));
+							}
+							else if(temp>max)
+							{
+								max = temp;
+								meilleursCoups.clear();
+								meilleursCoups.add(new Coup(g,c));
 							}
 						}
 					}
@@ -58,7 +66,7 @@ public class Minimax extends Algorithm {
 			}
 		}
 
-		return meilleurCoup;
+		return meilleursCoups.get(new Random().nextInt(meilleursCoups.size()));
 	}
 
 	public double min(BigGrille g, int tour)
