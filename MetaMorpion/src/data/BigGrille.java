@@ -142,7 +142,7 @@ public class BigGrille{
 
 	/*public boolean isCoupPossible(int grille)
 	{
-		if(grille>8 || grille<0) https://9gag.com/gag/aDWv6xO?sc=movie-tv
+		if(grille>8 || grille<0)
 		{
 			return false;
 		}
