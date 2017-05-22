@@ -26,7 +26,7 @@ public class Minimax extends Algorithm {
 				public void run() {
 					for (int c=0;c<9;c++)
 					{
-						if(true){ //mettre condition sur la grille
+						if(true){		//mettre condition sur la grille
 							double temp;
 							double max = Constantes.SCORE_MAX_NON_DEFINI;
 							BigGrille bg2 = grilleDepart.clone();
