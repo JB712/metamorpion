@@ -22,7 +22,7 @@ public class Humain extends Joueur {
 	}
 
 	/**
-	 * Retourne un int scanné par la console, -& pour correspondre aux tableaux
+	 * Retourne un int scanné par la console, -1 pour correspondre aux tableaux
 	 * @return int scanné-1
 	 */
 	public Coup joue(BigGrille grille, Console console, int tour, Case cas) {

@@ -18,7 +18,7 @@ public class Minimax extends Algorithm {
 		super(levelIA, grilleDepart, joueurActuel, tour);
 	}
 
-	private double max=-100000;
+	private double max=Constantes.SCORE_MAX_NON_DEFINI;
 
 	public Coup choisirCoup()
 	{

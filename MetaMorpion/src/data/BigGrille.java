@@ -49,6 +49,7 @@ public class BigGrille{
 			for(int j=0; j<9; j++){
 				if(isCoupPossible(new Coup(i, j))){
 					matchnul = false;
+					break;
 				}
 			}
 		}
@@ -68,17 +69,21 @@ public class BigGrille{
 			return Constantes.MATCH_NUL;
 		}
 		//Si le match n'est pas nul, on vérifie les victoires
-		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){
 			return victoirec;
 		}
 
-		if (this.wintest(symboleJoueurCourant).equals(symboleAdverse)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+		if (this.wintest(symboleAdverse).equals(symboleAdverse)){
 			return victoirea;
 		}
 		return Constantes.PARTIE_EN_COURS;
 	}
 
-
+	/**
+	 * fonction qui renvoie le symbole en parametre si il gagne, renvoie V (vide) sinon
+	 * @param symbole de celui qui peut gagner
+	 * @return le symbole (type Case) du gagnant
+	 */
 	public Case wintest(Case s) {
 		winCases(s);
 		for(int i=0; i<3; i++){
@@ -166,7 +171,7 @@ public class BigGrille{
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
 		boolean matchnul = true;
 
-		//On regarde d'abord si la partie est terminée
+		//On regarde d'abord s'il reste un coup à jouer
 		for (int i=0; i<9; i++) {
 			for(int j=0; j<9; j++){
 				if(isCoupPossible(new Coup(i, j))){
@@ -179,16 +184,16 @@ public class BigGrille{
 			return 0;
 		}
 		//Si le match n'est pas nul, on vérifie les victoires
-		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){
 			return 100;
 		}
 
-		if (this.wintest(symboleJoueurCourant).equals(symboleAdverse)){		// Ici peu importe le tour, c'est juste pour obtenir le résultat
+		if (this.wintest(symboleAdverse).equals(symboleAdverse)){
 			return -100;
 		}
 
 		//Si la partie n'est pas terminée:
 		return 0;
 	}
-	
+
 }
