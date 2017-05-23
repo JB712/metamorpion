@@ -16,7 +16,6 @@ public class AlphaBeta extends Algorithm {
 
 	}
 
-	private double max=Constantes.SCORE_MAX_NON_DEFINI;
 
 	@Override
 	public Coup choisirCoup()
@@ -69,11 +68,11 @@ public class AlphaBeta extends Algorithm {
 
 	}
 
-	private double max(BigGrille grille, double alpha, double beta, int tour){
+	private double max(BigGrille g, double alpha, double beta, int tour){
 
-		if(tour == tourMax || grille.getEtatPartie(symboleMin)!=Constantes.PARTIE_EN_COURS)
+		if(tour == tourMax || g.getEtatPartie(symboleMin)!=Constantes.PARTIE_EN_COURS)
 		{
-			return grille.evaluer(symboleMax)/*+profondeur*/;
+			return g.evaluer(symboleMax)/*+profondeur*/;
 		}
 
 		double valeur = Constantes.SCORE_MIN_NON_DEFINI;
@@ -83,10 +82,9 @@ public class AlphaBeta extends Algorithm {
 			int bgrille=i;
 			for (int j=0; j<9; j++)
 			{
-
-				BigGrille bg2 = grille.clone();
-				if(bg2.isCoupPossible(new Coup(bgrille, j)))
+				if(g.isCoupPossible(new Coup(bgrille, j)))
 				{
+					BigGrille bg2 = g.clone();
 					bg2.ajouterCoup(new Coup(bgrille, j), symboleMax);
 					valeur = Math.max(valeur, this.min(bg2, alpha ,beta, tour+1));
 					if (valeur >= beta){
@@ -99,11 +97,11 @@ public class AlphaBeta extends Algorithm {
 		return valeur;
 	}
 
-	private double min(BigGrille grille, double alpha, double beta, int tour) {
+	private double min(BigGrille g, double alpha, double beta, int tour) {
 
-		if(tour == tourMax || grille.getEtatPartie(symboleMax)!=Constantes.PARTIE_EN_COURS)
+		if(tour == tourMax || g.getEtatPartie(symboleMax)!=Constantes.PARTIE_EN_COURS)
 		{
-			return grille.evaluer(symboleMax)/*-profondeur*/;
+			return g.evaluer(symboleMax)/*-profondeur*/;
 		}
 
 		double valeur = Constantes.SCORE_MAX_NON_DEFINI;
@@ -112,9 +110,10 @@ public class AlphaBeta extends Algorithm {
 			int bgrille=i;
 			for (int j=0;j<9;j++)
 			{
-				BigGrille bg2 = grille.clone();
-				if(bg2.isCoupPossible(new Coup(bgrille, j)))
+				if(g.isCoupPossible(new Coup(bgrille, j)))
 				{
+
+					BigGrille bg2 = g.clone();
 					bg2.ajouterCoup(new Coup(bgrille, j), symboleMin);
 					valeur = Math.min(valeur, this.max(bg2, alpha ,beta, tour+1));
 					if (valeur <= alpha){
