@@ -87,11 +87,11 @@ public class Minimax extends Algorithm {
 			int grille=i;
 			for (int j=0;j<9;j++)
 			{
-				BigGrille bg2 = g.clone();
-				if(bg2.isCoupPossible(new Coup(grille, j)))
+				if(g.isCoupPossible(new Coup(grille, j)))
 				{
+					BigGrille bg2 = g.clone();
 					bg2.ajouterCoup(new Coup(grille, j), symboleMin);
-					temp=(int)min(bg2,tour+1);
+					temp=max(bg2,tour+1);
 
 					if(temp < min)
 					{
@@ -117,11 +117,11 @@ public class Minimax extends Algorithm {
 			int grille=i;
 			for (int j=0;j<9;j++)
 			{
-				BigGrille bg2 = g.clone();
-				if(bg2.isCoupPossible(new Coup(grille, j)))
+				if(g.isCoupPossible(new Coup(grille, j)))
 				{
+					BigGrille bg2 = g.clone();
 					bg2.ajouterCoup(new Coup(grille, j), symboleMax);
-					temp=(int)min(bg2,tour+1);
+					temp=min(bg2,tour+1);
 
 					if(temp > max)
 					{

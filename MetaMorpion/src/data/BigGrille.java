@@ -185,11 +185,11 @@ public class BigGrille{
 		}
 		//Si le match n'est pas nul, on vérifie les victoires
 		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){
-			return 100;
+			return 1000;
 		}
 
 		if (this.wintest(symboleAdverse).equals(symboleAdverse)){
-			return -100;
+			return -1000;
 		}
 
 		//Si la partie n'est pas terminée:
