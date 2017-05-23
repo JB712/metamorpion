@@ -1,5 +1,6 @@
 package data;
 
+import jeu.algosIA.AlphaBeta;
 import jeu.algosIA.Algorithm;
 import jeu.algosIA.Coup;
 import jeu.algosIA.Minimax;
@@ -33,22 +34,6 @@ public class IA extends Joueur {
 	public String getTypeNom() {
 		return "IA";
 	}
-	/*
-
-	@Override
-	public int joue(BigGrille grille, Console console, int tour) {
-		console.reflexionIA(this.getNom());
-		Algorithm iA;
-		if(algoIA==Constantes.IA_MINIMAX)
-		{
-			iA = new Minimax(levelIA,grille, this, tour);
-		}
-		else
-		{
-			iA = new AlphaBeta(levelIA,grille,this, tour);
-		}
-		return iA.choisirCoup();
-	}*/
 
 	//Doit renvoyer le numero de la case
 	public Coup joue(BigGrille grille, Console console, int tour, Case cas) {
@@ -60,8 +45,7 @@ public class IA extends Joueur {
 		}
 		else
 		{
-			//à remplacer par alpha-beta
-			iA = new Minimax(levelIA,grille, this, tour);
+			iA = new AlphaBeta(levelIA,grille,this, tour);
 		}
 		return iA.choisirCoup();
 	}
@@ -76,11 +60,9 @@ public class IA extends Joueur {
 		}
 		else
 		{
-			//à remplacer par alpha-beta
-			iA = new Minimax(levelIA,grille, this, tour);
+			iA = new AlphaBeta(levelIA,grille,this, tour);
 		}
 		return 0;
-		//return iA.choisirCoup(1, precedent);
 	}
 
 }
