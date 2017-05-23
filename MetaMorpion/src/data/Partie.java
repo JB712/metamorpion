@@ -67,6 +67,11 @@ public class Partie {
 	 * @return un booleen qui dit si la partie est terminée.
 	 */
 	public boolean isGameOver(){
+		boolean matchnul=true;
+		if(tour == Constantes.NB_TOUR_MAX){
+			etatPartie = Constantes.MATCH_NUL;
+			return true;
+		}
 		if(grille.wintest(j1.getSymbole()).equals(j1.getSymbole())){
 			etatPartie = Constantes.VICTOIRE_JOUEUR_1;
 			return true;
@@ -75,11 +80,14 @@ public class Partie {
 			etatPartie = Constantes.VICTOIRE_JOUEUR_2;
 			return true;
 		}
-		if(tour == Constantes.NB_TOUR_MAX){
-			etatPartie = Constantes.MATCH_NUL;
-			return true;
+		for(int i=0; i<9; i++){
+			if(grille.isGrilleLibre(i)){
+				matchnul=false;
+				break;
+			}
 		}
-		return false;
+		if(matchnul) etatPartie = Constantes.MATCH_NUL;
+		return matchnul;
 	}
 
 	public boolean jouerCoup(Coup coup, long tempsReflexion)
