@@ -35,10 +35,9 @@ public class Minimax extends Algorithm {
 					for (int c=0;c<9;c++)
 					{
 						if(grilleDepart.isCoupPossible(new Coup(g,c))){ 
-							double temp;
 							BigGrille bg2 = grilleDepart.clone();
 							bg2.ajouterCoup(new Coup(g, c), symboleMax);
-							temp=(int)min(bg2,tourDepart);
+							double temp = min(bg2,tourDepart);
 
 							if (temp==max)
 							{
