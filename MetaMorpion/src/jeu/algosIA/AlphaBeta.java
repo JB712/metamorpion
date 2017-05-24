@@ -60,6 +60,7 @@ public class AlphaBeta extends Algorithm {
 		System.out.println("Les meilleurs coups sont : ");
 		for (Coup coup : meilleursCoups) {
 			System.out.println(coup);
+			System.out.println(max);
 		}
 		return meilleursCoups.get(new Random().nextInt(meilleursCoups.size()));
 

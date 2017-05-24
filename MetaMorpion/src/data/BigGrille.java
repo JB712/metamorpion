@@ -168,6 +168,7 @@ public class BigGrille{
 	}
 
 	public int evaluer(Case symboleJoueurCourant){
+		int valeurDesChoix = 0;                        //représente la valeur de l'heuristique des choix de l'ordinateur
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
 		boolean matchnul = true;
 
@@ -183,17 +184,134 @@ public class BigGrille{
 		if(matchnul){
 			return 0;
 		}
+
+
+
+		/*
+
+		//ajout de la valeur du coup si la petite grille est gagnée ( de différentes façons)
+		for(int i=0; i<3; i++){
+			if(cases[3*i].equals(symboleJoueurCourant)){		//Test des solutions en ligne
+				if(cases[3*i+1].equals(symboleJoueurCourant) && cases[3*i+2].equals(symboleJoueurCourant)){
+					valeurDesChoix += 100;
+				}
+			}
+			if(cases[i].equals(symboleJoueurCourant)){			//Test des solutions en colonne
+				if(cases[3+i].equals(symboleJoueurCourant) && cases[6+i].equals(symboleJoueurCourant)){
+					valeurDesChoix += 100;
+				}
+			}
+		}
+		//Test du reste = les diagonales
+		if(cases[0].equals(symboleJoueurCourant) && cases[4].equals(symboleJoueurCourant) && cases[8].equals(symboleJoueurCourant)){
+			valeurDesChoix += 100;
+		}
+		if(cases[2].equals(symboleJoueurCourant) && cases[4].equals(symboleJoueurCourant) && cases[6].equals(symboleJoueurCourant)){
+			valeurDesChoix += 100;
+		}
+
+
+		//réduction de la valeur du coup si la petite grille est perdue ( de différentes façons)
+		for(int i=0; i<3; i++){
+			if(cases[3*i].equals(symboleAdverse)){		//Test des solutions en ligne
+				if(cases[3*i+1].equals(symboleAdverse) && cases[3*i+2].equals(symboleAdverse)){
+					valeurDesChoix -= 100;
+				}
+			}
+			if(cases[i].equals(symboleAdverse)){			//Test des solutions en colonne
+				if(cases[3+i].equals(symboleAdverse) && cases[6+i].equals(symboleAdverse)){
+					valeurDesChoix -= 100;
+				}
+			}
+		}
+		//Test du reste = les diagonales
+		if(cases[0].equals(symboleAdverse) && cases[4].equals(symboleAdverse) && cases[8].equals(symboleAdverse)){
+			valeurDesChoix -= 100;
+		}
+		if(cases[2].equals(symboleAdverse) && cases[4].equals(symboleAdverse) && cases[6].equals(symboleAdverse)){
+			valeurDesChoix -= 100;
+		}
+
+		//ajout de la valeur du coup si 2 cases de même nature sont alignées ( de différentes façons)
+		for(int i=0; i<3; i++){
+			if(cases[3*i].equals(symboleJoueurCourant)){		//Test des solutions en ligne
+				if(cases[3*i+1].equals(symboleJoueurCourant) || cases[3*i+2].equals(symboleJoueurCourant)){ //ATTENTION ne passes qu'une seule fois, dangereux en cas de plusieurs doublons (2 cases sur le même alignement) 
+					valeurDesChoix += 10;
+				}				
+			}
+			if(cases[3*i+1].equals(symboleJoueurCourant) && cases[3*i+2].equals(symboleJoueurCourant))
+				valeurDesChoix += 10;
+
+			if(cases[i].equals(symboleJoueurCourant)){			//Test des solutions en colonne
+				if(cases[3+i].equals(symboleJoueurCourant) || cases[6+i].equals(symboleJoueurCourant)){
+					valeurDesChoix += 10;
+				}
+			}
+			if(cases[3+i].equals(symboleJoueurCourant) && cases[6+i].equals(symboleJoueurCourant))
+				valeurDesChoix += 10;
+		}
+		//Test du reste = les diagonales
+		if(cases[0].equals(symboleJoueurCourant) && (cases[4].equals(symboleJoueurCourant) || cases[8].equals(symboleJoueurCourant))){
+			valeurDesChoix += 10;
+		}
+		if(cases[4].equals(symboleJoueurCourant) && cases[8].equals(symboleJoueurCourant)){
+			valeurDesChoix += 10;
+		}
+		if(cases[2].equals(symboleJoueurCourant) && (cases[4].equals(symboleJoueurCourant) || cases[6].equals(symboleJoueurCourant))){
+			valeurDesChoix += 10;
+		}
+		if(cases[4].equals(symboleJoueurCourant) && cases[6].equals(symboleJoueurCourant)){
+			valeurDesChoix += 10;
+		}
+
+		//réduction de la valeur du coup si 2 cases de même nature sont alignées ( de différentes façons)
+		for(int i=0; i<3; i++){
+			if(cases[3*i].equals(symboleAdverse)){		//Test des solutions en ligne
+				if(cases[3*i+1].equals(symboleAdverse) || cases[3*i+2].equals(symboleAdverse)){ //ATTENTION ne passes qu'une seule fois, dangereux en cas de plusieurs doublons (2 cases sur le même alignement) 
+					valeurDesChoix -= 10;
+				}				
+			}
+			if(cases[3*i+1].equals(symboleAdverse) && cases[3*i+2].equals(symboleAdverse))
+				valeurDesChoix -= 10;
+
+			if(cases[i].equals(symboleAdverse)){			//Test des solutions en colonne
+				if(cases[3+i].equals(symboleAdverse) || cases[6+i].equals(symboleAdverse)){
+					valeurDesChoix -= 10;
+				}
+			}
+			if(cases[3+i].equals(symboleAdverse) && cases[6+i].equals(symboleAdverse))
+				valeurDesChoix -= 10;
+		}
+		//Test du reste = les diagonales
+		if(cases[0].equals(symboleAdverse) && (cases[4].equals(symboleAdverse) || cases[8].equals(symboleAdverse))){
+			valeurDesChoix -= 10;
+		}
+		if(cases[4].equals(symboleAdverse) && cases[8].equals(symboleAdverse)){
+			valeurDesChoix -= 10;
+		}
+		if(cases[2].equals(symboleAdverse) && (cases[4].equals(symboleAdverse) || cases[6].equals(symboleAdverse))){
+			valeurDesChoix -= 10;
+		}
+		if(cases[4].equals(symboleAdverse) && cases[6].equals(symboleAdverse)){
+			valeurDesChoix -= 10;
+		}*/
+
+
+		for (SmallGrille sg : cases) {
+			valeurDesChoix += sg.rechercheValeur(symboleJoueurCourant);
+		}
+		
 		//Si le match n'est pas nul, on vérifie les victoires
 		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){
-			return 1000;
+			valeurDesChoix += 1000;
 		}
 
 		if (this.wintest(symboleAdverse).equals(symboleAdverse)){
-			return -1000;
+			valeurDesChoix -= 1000;
 		}
 
 		//Si la partie n'est pas terminée:
-		return 0;
+		return valeurDesChoix;
 	}
 
 }
