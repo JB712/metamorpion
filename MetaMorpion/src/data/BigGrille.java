@@ -181,7 +181,7 @@ public class BigGrille{
 		//Calcul des victoires uniques sur les petites grilles
 		for (SmallGrille sg : cases) {
 			if(sg.getEtat().equals(symboleJoueurCourant)) poidDuCoup += 10;
-			else if(sg.getEtat().equals(symboleJoueurCourant)) poidDuCoup -= 10;
+			else if(sg.getEtat().equals(symboleAdverse)) poidDuCoup -= 10;
 		}
 
 		//Calcul des allignements de SmallGrilles

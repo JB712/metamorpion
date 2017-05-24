@@ -20,6 +20,10 @@ public class AlphaBeta extends Algorithm {
 	@Override
 	public Coup choisirCoup()
 	{
+		//facilité de calcul
+		if(tourDepart==0){
+			return new Coup(4,4);
+		}
 		List<Coup> meilleursCoups=new ArrayList<>();
 		Thread[] threads = new Thread[9];
 
