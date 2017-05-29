@@ -170,62 +170,67 @@ public class BigGrille{
 
 		//Si le match n'est pas nul, on vérifie les victoires
 		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){
-			poidDuCoup += 10000;
+			poidDuCoup += 100000;
 		}
 
 		if (this.wintest(symboleAdverse).equals(symboleAdverse)){
-			poidDuCoup -= 10000;
+			poidDuCoup -= 100000;
 		}
 
 
-		//Calcul des victoires uniques sur les petites grilles
+		//Calcul des victoires uniques sur les petites grilles, et sinon les alignements de cases
 		for (SmallGrille sg : cases) {
-			if(sg.getEtat().equals(symboleJoueurCourant)) poidDuCoup += 10;
-			else if(sg.getEtat().equals(symboleAdverse)) poidDuCoup -= 10;
+			if(sg.getEtat().equals(symboleJoueurCourant)) poidDuCoup += 100;
+			else if(sg.getEtat().equals(symboleAdverse)) poidDuCoup -= 100;
+			else {
+				poidDuCoup += sg.evaluer(symboleJoueurCourant);
+				poidDuCoup -= sg.evaluer(symboleAdverse);
+			}
 		}
 
-		//Calcul des allignements de SmallGrilles
-		poidDuCoup += allignSG(symboleJoueurCourant);
-		poidDuCoup -= allignSG(symboleAdverse);
-
+		//Calcul des alignements de SmallGrilles
+		poidDuCoup += alignSG(symboleJoueurCourant);
+		poidDuCoup -= alignSG(symboleAdverse);
+		
 		return poidDuCoup;
 	}
 
-	public int allignSG(Case s){
+	public int alignSG(Case s){
 
 		int poidAllign = 0;
+		int poidUnitaire = 10000;
 
 		// en ligne et colonnes
 		for(int i=0; i<3; i++){
 			if(cases[3*i].getEtat().equals(s)){		//Test des solutions en ligne
 				if(cases[3*i+1].getEtat().equals(s) ^ cases[3*i+2].getEtat().equals(s)){
-					poidAllign += 100;
+					poidAllign += poidUnitaire;
 				}
 			}
 			else if (cases[3*i+1].getEtat().equals(s) && cases[3*i+2].getEtat().equals(s)){
-				poidAllign += 100;
+				poidAllign += poidUnitaire;
 			}
 			if(cases[i].getEtat().equals(s)){			//Test des solutions en colonne
 				if(cases[3+i].getEtat().equals(s) ^ cases[6+i].getEtat().equals(s)){
-					poidAllign += 100;
+					poidAllign += poidUnitaire;
 				}
 			}
 			else if(cases[3+i].getEtat().equals(s) && cases[6+i].getEtat().equals(s)){
-				poidAllign += 100;
+				poidAllign += poidUnitaire;
 			}
 		}
 		//Test du reste = les diagonales
 		if(cases[0].getEtat().equals(s) && (cases[4].getEtat().equals(s) ^ cases[8].getEtat().equals(s))){
-			poidAllign += 100;
+			poidAllign += poidUnitaire;
 		}
 		else if((cases[0].getEtat().equals(s) ^ cases[4].getEtat().equals(s)) && cases[8].getEtat().equals(s)){
-			poidAllign += 100;
+			poidAllign += poidUnitaire;
 		}
 		if(cases[2].getEtat().equals(s) && (cases[4].getEtat().equals(s) ^ cases[6].getEtat().equals(s))){
-			poidAllign += 100;
+			poidAllign += poidUnitaire;
 		}
 		else if((cases[2].getEtat().equals(s) ^ cases[4].getEtat().equals(s)) && cases[6].getEtat().equals(s)){
-			poidAllign += 100;
+			poidAllign += poidUnitaire;
 		}
 
 		return poidAllign;
