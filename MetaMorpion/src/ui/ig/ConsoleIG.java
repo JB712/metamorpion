@@ -1,6 +1,8 @@
-package ui;
+package ui.ig;
 
 import java.util.Scanner;
+
+import javax.swing.JFrame;
 
 import data.BigGrille;
 import data.Humain;
@@ -9,18 +11,23 @@ import data.Joueur;
 import data.Partie;
 import jeu.Jeu;
 import jeu.algosIA.Coup;
+import ui.Console;
 import util.Constantes;
 import util.Constantes.Case;
 
+public class ConsoleIG extends Console {
 
-public class Console extends Thread {
+	private GrilleIG ig;
+	private Scanner entry=new Scanner(System.in);
 
-	private Scanner entry;
-
-	public Console()
+	public ConsoleIG()
 	{
-		super("console");
-		entry = new Scanner(System.in);
+		ig=new GrilleIG();
+		JFrame jf=new JFrame("JEU DU TEN LOL XD FDP");
+		jf.setSize(ig.getPreferredSize());
+		jf.add(ig);
+		jf.setResizable(false);
+		jf.setVisible(true);
 	}
 
 	public void run()
@@ -95,46 +102,7 @@ public class Console extends Thread {
 	{
 		System.out.println("************* Tour "+tour+" ************");
 		System.out.println("C'est à  "+jCourant.getNom()+" ( "+jCourant.getSymbole()+" ) "+" de jouer !");
-		afficheGrille(grille);
-	}
-
-	public static void afficheGrille(BigGrille tab) {
-		//String symbol = "V";
-		String s="";
-		for(int i=0; i<3; i++){ // crée la méta grille
-
-			for(int j=0;j<3;j++) // duplique 1 ligne de la bigGrille
-			{
-				for(int k=0;k<3;k++) // assemble les 3 premières lignes des smallGrille
-				{
-					for(int l=0;l<3;l++){ // crée la première ligne d'une smallGrille
-						//s+=" " + symbol + " ";
-						s += " ";
-						if(tab.getCase(3*i+k).getCase(3*j+l).equals(Case.V)){
-							s+= " ";
-						}
-						else{
-							s+=tab.getCase(3*i+k).getCase(3*j+l);
-						}
-						s+= " ";
-						if (l != 2)
-							s+="|";
-					}
-					if (k != 2)
-						s+=" || ";
-				}
-				s+="\n";
-				if (j != 2){
-					s+="----------  ||  ---------  ||  ----------";
-					s+="\n";
-				}
-			}
-			if (i != 2){
-				s+="=========================================";
-				s+="\n";
-			}
-		}
-		System.out.println(s);
+		ig.update(grille);
 	}
 
 	public void afficherFinPartie(Partie partie) {
@@ -152,27 +120,17 @@ public class Console extends Thread {
 			break;
 		}
 		System.out.println("************ "+msg+" en "+(partie.getTour()-1)+" tours ***************");
-		afficheGrille(partie.getGrille());
 		System.out.println("Joueur 1 :" + partie.getJ1().getNom());
 		System.out.println("Joueur 2 :" + partie.getJ2().getNom());
 		System.out.println("******************************************************************");
-
+		ig.update(partie.getGrille());
 	}
 
 	public Coup getHumanCoup(BigGrille g, String nom, Case cas) {
-		int grille;
-		if (g.isGrilleLibre(g.getCoupPrecedent()))
-		{
-			grille=g.getCoupPrecedent();
-		}
-		else
-		{
-			System.out.print("Coup de "+nom+" ( "+cas+" ) "+". Choisissez votre grille : ");
-			grille=entry.nextInt()-1;
-		}
-		System.out.print("Coup de "+nom+" ( "+cas+" ) "+". Choisissez votre case : ");
-		int c=entry.nextInt()-1;
-		return new Coup(grille, c);
+		ig.activate(true);
+		Coup c = ig.getCoup();
+		ig.activate(false);
+		return c;
 	}
 
 	public void reflexionIA(String nom)

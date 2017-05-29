@@ -66,7 +66,7 @@ public class SmallGrille{
 	public boolean isCaseLibre(int cas) {
 		return (cases[cas].equals(Case.V));
 	}
-	
+
 	public int evaluer(Case s){
 		int poidAllign = 0;
 		int poidUnitaire = 1;

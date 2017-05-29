@@ -29,9 +29,5 @@ public class Humain extends Joueur {
 		return (console.getHumanCoup(grille,this.getNom(), cas));
 	}
 	
-	public int joue2(BigGrille grille, Console console, int tour, Case cas, int precedent) {
-		return (console.getHuman2Coup(this.getNom(), cas)-1);
-	}
-
 }
 

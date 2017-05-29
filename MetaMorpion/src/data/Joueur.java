@@ -78,16 +78,4 @@ public abstract class Joueur {
 	 */
 	public abstract Coup joue(BigGrille grille, Console console, int tour, Case cas);
 
-	/**
-	 * Fais jouer un tour "grille" au joueur
-	 * @param grille
-	 * @param console
-	 * @param tour
-	 * @param cas 
-	 * @param precedent
-	 * @return
-	 */
-	public abstract int joue2(BigGrille grille, Console console, int tour, Case cas, int precedent);
-	
-
 }

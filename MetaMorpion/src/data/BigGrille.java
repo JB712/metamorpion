@@ -32,10 +32,6 @@ public class BigGrille{
 		return copy;
 	}
 
-	public BigGrille getGrille(){
-		return this;
-	}
-
 	public SmallGrille getCase(int cas){
 		return cases[cas];
 	}
@@ -170,11 +166,11 @@ public class BigGrille{
 
 		//Si le match n'est pas nul, on vérifie les victoires
 		if(this.wintest(symboleJoueurCourant).equals(symboleJoueurCourant)){
-			poidDuCoup += 100000;
+			poidDuCoup += 300000;
 		}
 
 		if (this.wintest(symboleAdverse).equals(symboleAdverse)){
-			poidDuCoup -= 100000;
+			poidDuCoup -= 300000;
 		}
 
 
@@ -191,7 +187,7 @@ public class BigGrille{
 		//Calcul des alignements de SmallGrilles
 		poidDuCoup += alignSG(symboleJoueurCourant);
 		poidDuCoup -= alignSG(symboleAdverse);
-		
+
 		return poidDuCoup;
 	}
 
@@ -235,4 +231,5 @@ public class BigGrille{
 
 		return poidAllign;
 	}
+
 }
