@@ -5,6 +5,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 
 import data.BigGrille;
+import data.Frame;
 import data.Humain;
 import data.IA;
 import data.Joueur;
@@ -23,11 +24,12 @@ public class ConsoleIG extends Console {
 	public ConsoleIG()
 	{
 		ig=new GrilleIG();
-		JFrame jf=new JFrame("JEU DU TEN LOL XD FDP");
+		JFrame jf=new JFrame("C'est l'heure du duel !");
 		jf.setSize(ig.getPreferredSize());
 		jf.add(ig);
 		jf.setResizable(false);
 		jf.setVisible(true);
+		//JFrame jf = new Frame("C'est l'heure du duel !");
 	}
 
 	public void run()

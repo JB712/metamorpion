@@ -199,33 +199,45 @@ public class BigGrille{
 		// en ligne et colonnes
 		for(int i=0; i<3; i++){
 			if(cases[3*i].getEtat().equals(s)){		//Test des solutions en ligne
-				if(cases[3*i+1].getEtat().equals(s) ^ cases[3*i+2].getEtat().equals(s)){
+				if(cases[3*i+1].getEtat().equals(s) && cases[3*i+2].getEtat().equals(Case.V)){
+					poidAllign += poidUnitaire;
+				}
+				else if(cases[3*i+1].getEtat().equals(Case.V) && cases[3*i+2].getEtat().equals(s)){
 					poidAllign += poidUnitaire;
 				}
 			}
-			else if (cases[3*i+1].getEtat().equals(s) && cases[3*i+2].getEtat().equals(s)){
+			else if (cases[3*i+1].getEtat().equals(s) && cases[3*i+2].getEtat().equals(s) && cases[3*i].getEtat().equals(Case.V)){
 				poidAllign += poidUnitaire;
 			}
 			if(cases[i].getEtat().equals(s)){			//Test des solutions en colonne
-				if(cases[3+i].getEtat().equals(s) ^ cases[6+i].getEtat().equals(s)){
+				if(cases[3+i].getEtat().equals(s) && cases[6+i].getEtat().equals(Case.V)){
+					poidAllign += poidUnitaire;
+				}
+				else if(cases[3+i].getEtat().equals(Case.V) && cases[6+i].getEtat().equals(s)){
 					poidAllign += poidUnitaire;
 				}
 			}
-			else if(cases[3+i].getEtat().equals(s) && cases[6+i].getEtat().equals(s)){
+			else if(cases[3+i].getEtat().equals(s) && cases[6+i].getEtat().equals(s) && cases[i].getEtat().equals(Case.V)){
 				poidAllign += poidUnitaire;
 			}
 		}
 		//Test du reste = les diagonales
-		if(cases[0].getEtat().equals(s) && (cases[4].getEtat().equals(s) ^ cases[8].getEtat().equals(s))){
+		if(cases[0].getEtat().equals(s) && cases[4].getEtat().equals(s) && cases[8].getEtat().equals(Case.V)){
 			poidAllign += poidUnitaire;
 		}
-		else if((cases[0].getEtat().equals(s) ^ cases[4].getEtat().equals(s)) && cases[8].getEtat().equals(s)){
+		else if(cases[0].getEtat().equals(s) && cases[4].getEtat().equals(Case.V) && cases[8].getEtat().equals(s)){
 			poidAllign += poidUnitaire;
 		}
-		if(cases[2].getEtat().equals(s) && (cases[4].getEtat().equals(s) ^ cases[6].getEtat().equals(s))){
+		else if(cases[0].getEtat().equals(Case.V) && cases[4].getEtat().equals(s) && cases[8].getEtat().equals(s)){
 			poidAllign += poidUnitaire;
 		}
-		else if((cases[2].getEtat().equals(s) ^ cases[4].getEtat().equals(s)) && cases[6].getEtat().equals(s)){
+		if(cases[2].getEtat().equals(s) && cases[4].getEtat().equals(s) && cases[6].getEtat().equals(Case.V)){
+			poidAllign += poidUnitaire;
+		}
+		else if(cases[2].getEtat().equals(s) && cases[4].getEtat().equals(Case.V) && cases[6].getEtat().equals(s)){
+			poidAllign += poidUnitaire;
+		}
+		else if(cases[2].getEtat().equals(Case.V) && cases[4].getEtat().equals(s) && cases[6].getEtat().equals(s)){
 			poidAllign += poidUnitaire;
 		}
 
