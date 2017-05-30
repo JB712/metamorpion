@@ -27,32 +27,26 @@ public class SmallGrille{
 
 	}
 
-	public Case wintest(Case s) {
-		Case win = Case.V;
+	public void wintest(Case s) {
 		for(int i=0; i<3; i++){
 			if(cases[3*i].equals(s)){		//Test des solutions en ligne
 				if(cases[3*i+1].equals(s) && cases[3*i+2].equals(s)){
 					this.etat = s;
-					win = s;
 				}
 			}
 			if(cases[i].equals(s)){			//Test des solutions en colonne
 				if(cases[3+i].equals(s) && cases[6+i].equals(s)){
 					this.etat = s;
-					win = s;
 				}
 			}
 		}
 		//Test du reste = les diagonales
 		if(cases[0].equals(s) && cases[4].equals(s) && cases[8].equals(s)){
 			this.etat = s;
-			win = s;
 		}
 		if(cases[2].equals(s) && cases[4].equals(s) && cases[6].equals(s)){
 			this.etat = s;
-			win = s;
 		}
-		return win;
 	}
 
 	public boolean isFull(){

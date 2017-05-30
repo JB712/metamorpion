@@ -42,12 +42,14 @@ public class BigGrille{
 		boolean matchnul = true;
 
 		for (int i=0; i<9; i++) {
-			for(int j=0; j<9; j++){
-				if(isCoupPossible(new Coup(i, j))){
-					matchnul = false;
-					break;
+			//if(cases[i].isCaseLibre(i)) {
+				for(int j=0; j<9; j++){
+					if(isCoupPossible(new Coup(i, j))){
+						matchnul = false;
+						break;
+					}
 				}
-			}
+			//}
 		}
 
 		if(symboleJoueurCourant==Constantes.SYMBOLE_J1)
@@ -73,6 +75,11 @@ public class BigGrille{
 			return victoirea;
 		}
 		return Constantes.PARTIE_EN_COURS;
+	}
+
+	public int getCoupPrecedent()
+	{
+		return coupPrecedent;
 	}
 
 	/**
@@ -107,11 +114,6 @@ public class BigGrille{
 		if(this.getCase(big).getEtat()!=Constantes.Case.V) return false;
 		if(this.getCase(big).isFull()) return false;
 		return true;
-	}
-
-	public int getCoupPrecedent()
-	{
-		return coupPrecedent;
 	}
 
 	public boolean isCoupPossible(Coup coup)
@@ -153,11 +155,13 @@ public class BigGrille{
 
 		//On regarde d'abord s'il reste un coup à jouer
 		for (int i=0; i<9; i++) {
-			for(int j=0; j<9; j++){
-				if(isCoupPossible(new Coup(i, j))){
-					matchnul = false;
+			//if(cases[i].isCaseLibre(i)){
+				for(int j=0; j<9; j++){
+					if(isCoupPossible(new Coup(i, j))){
+						matchnul = false;
+					}
 				}
-			}
+			//}
 		}
 
 		if(matchnul){
