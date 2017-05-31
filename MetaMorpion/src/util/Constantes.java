@@ -25,7 +25,7 @@ public abstract class Constantes {
 	 * @author weber
 	 *
 	 */
-	public enum Case {V, X, O};
+	public enum Case {V, X, O, F};
 	
 	//Affectation  des symboles aux joueurs
 	public static final Case SYMBOLE_J1 = Case.X;
