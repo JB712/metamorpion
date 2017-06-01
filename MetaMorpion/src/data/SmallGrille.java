@@ -26,10 +26,6 @@ public class SmallGrille{
 
 	public void setCase (int small, Case symbol){
 		cases[small] = symbol;
-		/*byte unit = (symbol==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J1:Constantes.SYMBOLE_J2;
-		switch (small){
-		case 0: avantages =
-		}*/
 	}
 
 	public void wintest(Case s) {

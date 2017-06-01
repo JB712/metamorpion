@@ -37,8 +37,8 @@ public class BigGrille{
 	}
 
 	public int getEtatPartie(Case symboleJoueurCourant){
-		//int victoirec, victoirea; //Pourra être simplifiée .... + c = courant et a = adversaire
-		//Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
+		int victoirec, victoirea; //Pourra être simplifiée .... + c = courant et a = adversaire
+		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
 		boolean matchnul = true;
 
 		for (int i=0; i<9; i++) {
@@ -56,11 +56,11 @@ public class BigGrille{
 			return Constantes.MATCH_NUL;
 		}
 		
-		if(wintest(symboleJoueurCourant)==symboleJoueurCourant){
+		/*if(wintest(symboleJoueurCourant)==symboleJoueurCourant){
 			return (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.VICTOIRE_JOUEUR_1:Constantes.VICTOIRE_JOUEUR_2;
-		}
+		}*/
 
-		/*if(symboleJoueurCourant==Constantes.SYMBOLE_J1)
+		if(symboleJoueurCourant==Constantes.SYMBOLE_J1)
 		{
 			victoirec=Constantes.VICTOIRE_JOUEUR_1;
 			victoirea=Constantes.VICTOIRE_JOUEUR_2;
@@ -78,7 +78,7 @@ public class BigGrille{
 
 		if (this.wintest(symboleAdverse)==symboleAdverse){
 			return victoirea;
-		}*/
+		}
 		return Constantes.PARTIE_EN_COURS;
 	}
 
@@ -145,7 +145,7 @@ public class BigGrille{
 		{
 			return true;
 		}
-		if (grille!=coupPrecedent && cases[coupPrecedent].getEtat()==Case.V)
+		if (grille!=coupPrecedent && this.isGrilleLibre(coupPrecedent))
 		{
 			return false;
 		}
@@ -165,7 +165,7 @@ public class BigGrille{
 		cases[coup.getGrille()].setCase(coup.getC(), symbol);
 	}
 
-	public int evaluer(Case symboleJoueurCourant){
+	public double evaluer(Case symboleJoueurCourant){
 		int poidDuCoup = 0;                        //représente la valeur de l'heuristique des choix de l'ordinateur
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
 		boolean matchnul = true;
@@ -190,7 +190,7 @@ public class BigGrille{
 			poidDuCoup += 300000;
 		}
 
-		if (this.wintest(symboleAdverse)==symboleAdverse){
+		else if (this.wintest(symboleAdverse)==symboleAdverse){
 			poidDuCoup -= 300000;
 		}
 
