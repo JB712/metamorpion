@@ -1,9 +1,6 @@
 package ui.ig;
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
@@ -13,14 +10,13 @@ import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import data.SmallGrille;
 import jeu.algosIA.Coup;
 import util.Constantes.Case;
 
-public class PetiteGrilleIG extends Container{
+public class PetiteGrilleIG extends JPanel{
 
 	private CaseIG[] cases=new CaseIG[9];
 	private int idGrille;
@@ -40,8 +36,8 @@ public class PetiteGrilleIG extends Container{
 			e.printStackTrace();
 		}
 
-		iconX=new ImageIcon(x.getScaledInstance(50,50, Image.SCALE_DEFAULT));
-		iconO=new ImageIcon(o.getScaledInstance(50,50, Image.SCALE_DEFAULT));
+		//iconX=new ImageIcon(x.getScaledInstance(20,20, Image.SCALE_DEFAULT));
+		//iconO=new ImageIcon(o.getScaledInstance(20,20, Image.SCALE_DEFAULT));
 		this.grille=grilleIG;
 		this.idGrille=idGrille;
 
@@ -53,6 +49,10 @@ public class PetiteGrilleIG extends Container{
 			cases[i]=new CaseIG(this,i);
 			this.add(cases[i]);
 		}
+		
+		iconX=new ImageIcon(x.getScaledInstance(15,15, Image.SCALE_DEFAULT));
+		iconO=new ImageIcon(o.getScaledInstance(15,15, Image.SCALE_DEFAULT));
+		
 	}
 
 	public void setCoup(int c)
@@ -84,6 +84,13 @@ public class PetiteGrilleIG extends Container{
 				cases[i].setIcon(iconO);
 				//cases[i].setBackground(Color.BLUE);
 			}
+		}
+	}
+
+	public void clean() {
+		for (int i=0;i<9;i++)
+		{
+			cases[i].setIcon(null);
 		}
 	}
 }

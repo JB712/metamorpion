@@ -191,4 +191,9 @@ public class Console extends Thread {
 	public void afficherCoup(Joueur joueurCourant, Coup coup) {
 		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1) + "\n");
 	}
+
+	public void afficherCoupInvalide()
+	{
+		System.out.println("COUP INVALIDE : Recommencez !");
+	}
 }

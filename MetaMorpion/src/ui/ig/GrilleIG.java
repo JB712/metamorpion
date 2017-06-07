@@ -1,22 +1,14 @@
 package ui.ig;
 
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.BigGrille;
 import jeu.algosIA.Coup;
 
-public class GrilleIG extends Container
+public class GrilleIG extends JPanel
 {
 	private PetiteGrilleIG[] cases = new PetiteGrilleIG[9];
 	private Coup coup=new Coup(-1,-1);
@@ -68,4 +60,12 @@ public class GrilleIG extends Container
 			g.activate(b);
 		}
 	}
+
+	public void clean() {
+		for (int i=0;i<9;i++)
+		{
+			cases[i].clean();
+		}
+	}
+
 }

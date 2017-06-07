@@ -72,11 +72,11 @@ public class Partie {
 			etatPartie = Constantes.MATCH_NUL;
 			return true;
 		}
-		if(grille.wintest(j1.getSymbole()).equals(j1.getSymbole())){
+		if(grille.wintest(j1.getSymbole())==(j1.getSymbole())){
 			etatPartie = Constantes.VICTOIRE_JOUEUR_1;
 			return true;
 		}
-		if(grille.wintest(j2.getSymbole()).equals(j2.getSymbole())){
+		if(grille.wintest(j2.getSymbole())==(j2.getSymbole())){
 			etatPartie = Constantes.VICTOIRE_JOUEUR_2;
 			return true;
 		}
