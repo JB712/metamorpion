@@ -70,8 +70,8 @@ public class ConsoleIG extends Console {
 			break;
 		}
 		mm.updateLogs("************ "+msg+" en "+(partie.getTour()-1)+" tours ***************");
-		mm.updateLogs("Joueur 1 :" + partie.getJ1().getNom());
-		mm.updateLogs("Joueur 2 :" + partie.getJ2().getNom());
+		mm.updateLogs("Joueur 1 :" + partie.getJ1().getNom()+" : "+timeToString(partie.getTempsReflexionJ1())+"s");
+		mm.updateLogs("Joueur 2 :" + partie.getJ2().getNom()+" : "+timeToString(partie.getTempsReflexionJ2())+"s");
 		mm.updateLogs("******************************************************************");
 		ig.update(partie.getGrille());
 	}
@@ -88,20 +88,48 @@ public class ConsoleIG extends Console {
 		mm.updateLogs(nom+" réfléchit ...");
 	}
 
-	public void afficherCoupSimple(Joueur joueurCourant, int coup) {
-		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+"\n");
+	public void afficherCoupSimple(Joueur joueurCourant, int coup, long t) {
+		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+" aprés "+timeToString(t)+" de réflexion\n");
 	}
 
-	public void afficherCoupDouble(Joueur joueurCourant, int bg, int sg) {
-		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg) + "\n");
+	public void afficherCoupDouble(Joueur joueurCourant, int bg, int sg, long t) {
+		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg)+" aprés "+timeToString(t)+" de réflexion\n");
 	}
 
-	public void afficherCoup(Joueur joueurCourant, Coup coup) {
-		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1) + "\n");
+	public void afficherCoup(Joueur joueurCourant, Coup coup, long t) {
+		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1)+" aprés "+timeToString(t)+" de réflexion\n");
 	}
 	
 	public void afficherCoupInvalide()
 	{
 		mm.updateLogs("COUP INVALIDE : Recommencez !");
+	}
+	
+	private String timeToString(long t)
+	{
+		String s="";
+		if(t>3600000)
+		{
+			long h=t/3600000;
+			s+=h+"h ";
+			t-=h*3600000;
+		}
+		if(t>60000)
+		{
+			long m=t/60000;
+			s+=m+"m ";
+			t-=m*60000;
+		}
+		if(t>1000)
+		{
+			long sec=t/1000;
+			s+=sec+"s ";
+			t-=sec*1000;
+		}
+		if(t>0)
+		{
+			s+=t+"ms";
+		}
+		return s;
 	}
 }

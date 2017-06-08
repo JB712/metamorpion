@@ -6,6 +6,7 @@ import util.*;
 public class Partie {
 
 	private Joueur j1, j2;
+	private long tempsReflexionJoueur1,tempsReflexionJoueur2;
 	private Joueur jCourant;
 	private int tour;
 	private BigGrille grille;
@@ -15,6 +16,8 @@ public class Partie {
 		j1=joueur1;
 		j2=joueur2;
 		jCourant=j1;
+		this.tempsReflexionJoueur1=0;
+		this.tempsReflexionJoueur2=0;
 		etatPartie=Constantes.PARTIE_EN_COURS;
 		grille = new BigGrille();
 	}
@@ -100,6 +103,7 @@ public class Partie {
 		{
 			grille.ajouterCoup(coup, Constantes.SYMBOLE_J1);
 			//verificationFinPartie();
+			tempsReflexionJoueur1+=tempsReflexion;
 			grille.wintest(Constantes.SYMBOLE_J1);
 			jCourant= j2;
 		}
@@ -107,11 +111,22 @@ public class Partie {
 		{
 			grille.ajouterCoup(coup, Constantes.SYMBOLE_J2);
 			//verificationFinPartie();
+			tempsReflexionJoueur2+=tempsReflexion;
 			grille.wintest(Constantes.SYMBOLE_J2);
 			jCourant=j1;
 		}
 		tour++;
 		return true;
+	}
+
+	public long getTempsReflexionJ1()
+	{
+		return tempsReflexionJoueur1;
+	}
+	
+	public long getTempsReflexionJ2()
+	{
+		return tempsReflexionJoueur2;
 	}
 
 	/*public boolean jouerCoupSimple(int cas, long tempsReflexion) {

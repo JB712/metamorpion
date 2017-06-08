@@ -180,20 +180,48 @@ public class Console extends Thread {
 		System.out.println(nom+" réfléchit ...");
 	}
 
-	public void afficherCoupSimple(Joueur joueurCourant, int coup) {
-		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+"\n");
+	public void afficherCoupSimple(Joueur joueurCourant, int coup, long t) {
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+" aprés "+timeToString(t)+" de réflexion\n");
 	}
 
-	public void afficherCoupDouble(Joueur joueurCourant, int bg, int sg) {
-		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg) + "\n");
+	public void afficherCoupDouble(Joueur joueurCourant, int bg, int sg, long t) {
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg) + " aprés "+timeToString(t)+" de réflexion\n");
 	}
 
-	public void afficherCoup(Joueur joueurCourant, Coup coup) {
-		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1) + "\n");
+	public void afficherCoup(Joueur joueurCourant, Coup coup,long t) {
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1) +" aprés "+timeToString(t)+" de réflexion\n");
 	}
 
 	public void afficherCoupInvalide()
 	{
 		System.out.println("COUP INVALIDE : Recommencez !");
+	}
+	
+	private String timeToString(long t)
+	{
+		String s="";
+		if(t>3600000)
+		{
+			long h=t/3600000;
+			s+=h+"h ";
+			t-=h*3600000;
+		}
+		if(t>60000)
+		{
+			long m=t/60000;
+			s+=m+"m ";
+			t-=m*60000;
+		}
+		if(t>1000)
+		{
+			long sec=t/1000;
+			s+=sec+"s ";
+			t-=sec*1000;
+		}
+		if(t>0)
+		{
+			s+=t+"ms";
+		}
+		return s;
 	}
 }
