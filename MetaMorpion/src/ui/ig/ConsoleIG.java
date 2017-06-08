@@ -97,7 +97,7 @@ public class ConsoleIG extends Console {
 	}
 
 	public void afficherCoup(Joueur joueurCourant, Coup coup, long t) {
-		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1)+" aprés "+timeToString(t)+" de réflexion\n");
+		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case "+(coup.getC()+1)+" aprés "+timeToString(t)+" de réflexion\n");
 	}
 	
 	public void afficherCoupInvalide()
