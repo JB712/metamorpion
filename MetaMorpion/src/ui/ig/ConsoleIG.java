@@ -90,14 +90,17 @@ public class ConsoleIG extends Console {
 
 	public void afficherCoupSimple(Joueur joueurCourant, int coup, long t) {
 		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+" aprés "+timeToString(t)+" de réflexion\n");
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+" aprés "+timeToString(t)+" de réflexion\n");
 	}
 
 	public void afficherCoupDouble(Joueur joueurCourant, int bg, int sg, long t) {
 		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg)+" aprés "+timeToString(t)+" de réflexion\n");
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg) + " aprés "+timeToString(t)+" de réflexion\n");
 	}
 
 	public void afficherCoup(Joueur joueurCourant, Coup coup, long t) {
 		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case "+(coup.getC()+1)+" aprés "+timeToString(t)+" de réflexion\n");
+		System.out.println(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1) +" aprés "+timeToString(t)+" de réflexion\n");
 	}
 	
 	public void afficherCoupInvalide()
