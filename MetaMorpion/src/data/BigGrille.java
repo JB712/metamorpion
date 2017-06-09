@@ -1,5 +1,7 @@
 package data;
 
+import java.util.Arrays;
+
 import jeu.algosIA.Coup;
 import util.Constantes;
 import util.Constantes.Case;
@@ -9,11 +11,13 @@ public class BigGrille{
 
 	private SmallGrille[] cases = new SmallGrille[9];		// les lignes sont [0-2], [3-5], [6-8]
 	private int coupPrecedent=-666;
+	private int[] avantages = new int[16];
 
 	public BigGrille(){
 		for (int i=0; i<9; i++){
 			cases[i]=new SmallGrille();
 		}
+		Arrays.fill(avantages, 0);
 	}
 
 	public BigGrille(BigGrille bg){
@@ -24,6 +28,7 @@ public class BigGrille{
 			{
 				cases[i].setCase(j, bg.getCase(i).getCase(j));
 			}
+			//cases.setAvantages(Arrays.copyOf(bg.getCase(i).getAvantages(), 16));
 		}
 	}
 
@@ -55,7 +60,7 @@ public class BigGrille{
 		if(matchnul){
 			return Constantes.MATCH_NUL;
 		}
-		
+
 		/*if(wintest(symboleJoueurCourant)==symboleJoueurCourant){
 			return (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.VICTOIRE_JOUEUR_1:Constantes.VICTOIRE_JOUEUR_2;
 		}*/
@@ -70,7 +75,7 @@ public class BigGrille{
 			victoirec=Constantes.VICTOIRE_JOUEUR_2;
 			victoirea=Constantes.VICTOIRE_JOUEUR_1;
 		}
-		
+
 		//Si le match n'est pas nul, on vérifie les victoires
 		if(this.wintest(symboleJoueurCourant)==symboleJoueurCourant){
 			return victoirec;
@@ -94,7 +99,13 @@ public class BigGrille{
 	 */
 	public Case wintest(Case s) {
 		winCases(s);
-		if((cases[4].getEtat()==s &&
+		for(int i=0; i<8; i++){	//Boucle pour les X
+			if(avantages[i]==3) return Constantes.SYMBOLE_J1;
+		}
+		for(int i=8;i<16;i++){	//Boucle pour les O
+			if(avantages[i]==3) return Constantes.SYMBOLE_J2;
+		}
+		/*if((cases[4].getEtat()==s &&
 				((cases[0].getEtat()==s && cases[8].getEtat()==s) || (cases[1].getEtat()==s && cases[7].getEtat()==s) 
 						|| (cases[2].getEtat()==s && cases[6].getEtat()==s) || (cases[3].getEtat()==s && cases[5].getEtat()==s)))
 				|| (cases[0].getEtat()==s && cases[3].getEtat()==s && cases[6].getEtat()==s)
@@ -102,26 +113,90 @@ public class BigGrille{
 				|| (cases[0].getEtat()==s && cases[1].getEtat()==s && cases[2].getEtat()==s)
 				|| (cases[6].getEtat()==s && cases[7].getEtat()==s && cases[8].getEtat()==s)){
 			return s;
-		}
-
-		/*for(int i=0; i<3; i++){
-			if(cases[3*i].getEtat().equals(s)){		//Test des solutions en ligne
-				if(cases[3*i+1].getEtat().equals(s) && cases[3*i+2].getEtat().equals(s))return s;
-			}
-			if(cases[i].getEtat().equals(s)){			//Test des solutions en colonne
-				if(cases[3+i].getEtat().equals(s) && cases[6+i].getEtat().equals(s)) return s;
-			}
-		}
-		//Test du reste = les diagonales
-		if(cases[0].getEtat().equals(s) && cases[4].getEtat().equals(s) && cases[8].getEtat().equals(s)) return s;
-		if(cases[2].getEtat().equals(s) && cases[4].getEtat().equals(s) && cases[6].getEtat().equals(s)) return s;*/
+		}*/
 		return Case.V;
 	}
 
 	public void winCases(Case s){
-		for (SmallGrille sg : cases) {
-			if(sg.getEtat()==Case.V && !sg.isFull()){
-				sg.wintest(s);
+		for (int i=0;i<8; i++) {
+			if(!cases[i].isFull()){	//USELESS (a priori)
+				cases[i].wintest(s);
+				changeAv(i,s);
+			}
+		}
+	}
+	
+	public void changeAv(int pos, Case symbol){
+		int unit = (symbol==Constantes.SYMBOLE_J1)?1:-1;
+		switch(pos){
+		case 0:
+			majAv(0,unit);
+			majAv(3,unit);
+			majAv(6,unit);
+			break;
+		case 1:
+			majAv(1, unit);
+			majAv(3, unit);
+			break;
+		case 2:
+			majAv(2,unit);
+			majAv(3,unit);
+			majAv(7,unit);
+			break;
+		case 3:	//Deuxieme ligne
+			majAv(0,unit);
+			majAv(4,unit);
+			break;
+		case 4:
+			majAv(1,unit);
+			majAv(4,unit);
+			majAv(6,unit);
+			majAv(7,unit);
+			break;
+		case 5:
+			majAv(2, unit);
+			majAv(4, unit);
+			break;
+		case 6:	//Troisième ligne
+			majAv(0,unit);
+			majAv(5,unit);
+			majAv(7,unit);
+			break;
+		case 7:
+			majAv(1, unit);
+			majAv(5, unit);
+			break;
+		case 8:
+			majAv(2,unit);
+			majAv(5,unit);
+			majAv(6,unit);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void majAv(int pos, int unit){
+		if(avantages[pos]!=42){
+			if(unit==1){
+				if(avantages[8+pos]>0){
+					avantages[pos]=42;
+					avantages[8+pos]=42;
+				}
+				else{
+					if(++avantages[pos]==3) this.etat=Constantes.SYMBOLE_J1;
+				}
+			}
+			else{
+				if(avantages[pos]>0){
+					avantages[8+pos]=42;
+					avantages[pos]=42;
+				}
+				else{
+					if(++avantages[8+pos]==3) {
+						this.etat=Constantes.SYMBOLE_J2;
+					}
+				}
 			}
 		}
 	}
@@ -194,15 +269,10 @@ public class BigGrille{
 			poidDuCoup -= 300000;
 		}
 
-
 		//Calcul des victoires uniques sur les petites grilles, et sinon les alignements de cases
 		for (SmallGrille sg : cases) {
-			if(sg.getEtat()==symboleJoueurCourant) poidDuCoup += 100;
-			else if(sg.getEtat()==symboleAdverse) poidDuCoup -= 100;
-			else {
-				poidDuCoup += sg.evaluer(symboleJoueurCourant);
-				poidDuCoup -= sg.evaluer(symboleAdverse);
-			}
+			poidDuCoup += sg.evaluer(symboleJoueurCourant);
+			poidDuCoup -= sg.evaluer(symboleAdverse);
 		}
 
 		//Calcul des alignements de SmallGrilles
@@ -214,55 +284,55 @@ public class BigGrille{
 
 	public int alignSG(Case s){
 
-		int poidAllign = 0;
+		int poidAllignToReturn = 0;
 		int poidUnitaire = 10000;
 
 		// en ligne et colonnes
 		for(int i=0; i<3; i++){
 			if(cases[3*i].getEtat()==s){		//Test des solutions en ligne
 				if(cases[3*i+1].getEtat()==s && cases[3*i+2].getEtat()==Case.V){
-					poidAllign += poidUnitaire;
+					poidAllignToReturn += poidUnitaire;
 				}
 				else if(cases[3*i+1].getEtat()==Case.V && cases[3*i+2].getEtat()==s){
-					poidAllign += poidUnitaire;
+					poidAllignToReturn += poidUnitaire;
 				}
 			}
 			else if (cases[3*i+1].getEtat()==s && cases[3*i+2].getEtat()==s && cases[3*i].getEtat()==Case.V){
-				poidAllign += poidUnitaire;
+				poidAllignToReturn += poidUnitaire;
 			}
 			if(cases[i].getEtat()==s){			//Test des solutions en colonne
 				if(cases[3+i].getEtat()==s && cases[6+i].getEtat()==Case.V){
-					poidAllign += poidUnitaire;
+					poidAllignToReturn += poidUnitaire;
 				}
 				else if(cases[3+i].getEtat()==Case.V && cases[6+i].getEtat()==s){
-					poidAllign += poidUnitaire;
+					poidAllignToReturn += poidUnitaire;
 				}
 			}
 			else if(cases[3+i].getEtat()==s && cases[6+i].getEtat()==s && cases[i].getEtat()==Case.V){
-				poidAllign += poidUnitaire;
+				poidAllignToReturn += poidUnitaire;
 			}
 		}
 		//Test du reste = les diagonales
 		if(cases[0].getEtat()==s && cases[4].getEtat()==s && cases[8].getEtat()==Case.V){
-			poidAllign += poidUnitaire;
+			poidAllignToReturn += poidUnitaire;
 		}
 		else if(cases[0].getEtat()==s && cases[4].getEtat()==Case.V && cases[8].getEtat()==s){
-			poidAllign += poidUnitaire;
+			poidAllignToReturn += poidUnitaire;
 		}
 		else if(cases[0].getEtat()==Case.V && cases[4].getEtat()==s && cases[8].getEtat()==s){
-			poidAllign += poidUnitaire;
+			poidAllignToReturn += poidUnitaire;
 		}
 		if(cases[2].getEtat()==s && cases[4].getEtat()==s && cases[6].getEtat()==Case.V){
-			poidAllign += poidUnitaire;
+			poidAllignToReturn += poidUnitaire;
 		}
 		else if(cases[2].getEtat()==s && cases[4].getEtat()==Case.V && cases[6].getEtat()==s){
-			poidAllign += poidUnitaire;
+			poidAllignToReturn += poidUnitaire;
 		}
 		else if(cases[2].getEtat()==Case.V && cases[4].getEtat()==s && cases[6].getEtat()==s){
-			poidAllign += poidUnitaire;
+			poidAllignToReturn += poidUnitaire;
 		}
 
-		return poidAllign;
+		return poidAllignToReturn;
 	}
 
 }

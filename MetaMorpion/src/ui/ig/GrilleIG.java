@@ -49,7 +49,15 @@ public class GrilleIG extends JPanel
 	{
 		for (int i=0;i<9;i++)
 		{
-			cases[i].update(grille.getCase(i));
+			/*if (!grille.isGrilleLibre(i))
+			{
+				remove(i);
+				add(new JPanel(),i);
+			}
+			else*/
+			{
+				cases[i].update(grille.getCase(i));
+			}
 		}
 	}
 
