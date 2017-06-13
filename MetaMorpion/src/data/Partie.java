@@ -1,6 +1,5 @@
 package data;
 
-import jeu.algosIA.Coup;
 import util.*;
 
 public class Partie {

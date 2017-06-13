@@ -3,12 +3,12 @@ package ui;
 import java.util.Scanner;
 
 import data.BigGrille;
+import data.Coup;
 import data.Humain;
 import data.IA;
 import data.Joueur;
 import data.Partie;
 import jeu.Jeu;
-import jeu.algosIA.Coup;
 import util.Constantes;
 import util.Constantes.Case;
 

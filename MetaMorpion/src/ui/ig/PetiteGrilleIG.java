@@ -12,8 +12,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import data.Coup;
 import data.SmallGrille;
-import jeu.algosIA.Coup;
 import util.Constantes.Case;
 
 public class PetiteGrilleIG extends JPanel{

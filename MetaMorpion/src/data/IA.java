@@ -2,7 +2,6 @@ package data;
 
 import jeu.algosIA.AlphaBeta;
 import jeu.algosIA.Algorithm;
-import jeu.algosIA.Coup;
 import jeu.algosIA.Minimax;
 import ui.Console;
 import util.Constantes;

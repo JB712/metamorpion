@@ -2,7 +2,6 @@ package data;
 
 import java.util.Arrays;
 
-import jeu.algosIA.Coup;
 import util.Constantes;
 import util.Constantes.Case;
 
@@ -100,7 +99,7 @@ public class BigGrille{
 	 */
 	public Case wintest(Case s) {
 		//winCases(s);
-		if(s==Constantes.SYMBOLE_J1){
+		/*if(s==Constantes.SYMBOLE_J1){
 			for(int i=0; i<8; i++){	//Boucle pour les X
 				if(avantages[i]==3){
 					this.EtatPartie=Constantes.VICTOIRE_JOUEUR_1;
@@ -115,7 +114,9 @@ public class BigGrille{
 					return Constantes.SYMBOLE_J2;
 				}
 			}
-		}
+		}*/
+		if(this.EtatPartie==Constantes.VICTOIRE_JOUEUR_1) return Constantes.SYMBOLE_J1;
+		else if(this.EtatPartie==Constantes.VICTOIRE_JOUEUR_2) return Constantes.SYMBOLE_J2;
 		boolean nul = true;
 		for(int i=0;i<16;i++){
 			if(avantages[i]!=42){
@@ -139,16 +140,16 @@ public class BigGrille{
 		return Case.V;
 	}
 
-	public void winCases(Case s){	//suposed useless
+	/*public void winCases(Case s){	//suposed useless
 		if(coupPrecedent != -666 && cases[coupPrecedent].getEtat()!=Case.V) changeAv(coupPrecedent,s);
 
-		/*for (int i=0;i<8; i++) {
+		for (int i=0;i<8; i++) {
 			if(!cases[i].isFull()){	//USELESS (a priori)
 				cases[i].wintest(s);
 				changeAv(i,s);
 			}
-		}*/
-	}
+		}
+	}*/
 
 	public void changeAv(int pos, Case symbol){
 		switch(pos){
@@ -208,19 +209,21 @@ public class BigGrille{
 		if(avantages[pos]!=42){
 			if(symbol==Constantes.SYMBOLE_J1){
 				if(avantages[8+pos]>0){
-					System.out.println("L'avantage de la position "+(pos+8)+"est déjà supérieur à 0");
 					avantages[pos]=42;
 					avantages[8+pos]=42;
 				}
-				else ++avantages[pos];
+				else{
+					if(++avantages[pos]==3) this.EtatPartie=Constantes.VICTOIRE_JOUEUR_1;
+				}
 			}
 			else{
 				if(avantages[pos]>0){
-					System.out.println("L'avantage de la position "+pos+"est déjà supérieur à 0");
 					avantages[8+pos]=42;
 					avantages[pos]=42;
 				}
-				else ++avantages[8+pos];
+				else{
+					if(++avantages[8+pos]==3) this.EtatPartie=Constantes.VICTOIRE_JOUEUR_2;
+				}
 			}
 		}
 	}
@@ -268,10 +271,8 @@ public class BigGrille{
 		int poidDuCoup = 0;                        //représente la valeur de l'heuristique des choix de l'ordinateur
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
 
-		wintest(symboleAdverse);
-
-		if(wintest(symboleJoueurCourant)==symboleJoueurCourant) poidDuCoup += 10000;
-		if(wintest(symboleAdverse)==symboleAdverse) poidDuCoup -= 10000;
+		if(wintest(symboleJoueurCourant)==symboleJoueurCourant) poidDuCoup += 80000;
+		if(wintest(symboleAdverse)==symboleAdverse) poidDuCoup -= 80000;
 
 		/*boolean matchnul = true;
 
@@ -315,7 +316,7 @@ public class BigGrille{
 	public int alignSG(Case s){
 
 		int poidAllign = 0;
-		int poidUnitaire = 1000;
+		int poidUnitaire = 4000;
 
 		if(s==Constantes.SYMBOLE_J1){
 			for(int i=0;i<8;i++){
@@ -379,7 +380,11 @@ public class BigGrille{
 
 	public String printAv(){
 		String s="[";
-		for(int i=0;i<16;i++){
+		for(int i=0;i<8;i++){
+			s+=avantages[i]+" ";
+		}
+		s+=" || ";
+		for(int i=8;i<16;i++){
 			s+=avantages[i]+" ";
 		}
 		s+="]";

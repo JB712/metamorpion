@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import data.BigGrille;
+import data.Coup;
 import data.Joueur;
 import util.Constantes;
 

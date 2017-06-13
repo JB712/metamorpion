@@ -45,59 +45,60 @@ public class SmallGrille{
 	public void setCase (int small, Case symbol){
 		cases[small] = symbol;
 		if(symbol==Case.V) return;
-		int unit = (symbol==Constantes.SYMBOLE_J1)?1:-1;
 		switch(small){
 		case 0:
-			majAv(0,unit);
-			majAv(3,unit);
-			majAv(6,unit);
+			majAv(0,symbol);
+			majAv(3,symbol);
+			majAv(6,symbol);
 			break;
 		case 1:
-			majAv(1, unit);
-			majAv(3, unit);
+			majAv(1, symbol);
+			majAv(3, symbol);
 			break;
 		case 2:
-			majAv(2,unit);
-			majAv(3,unit);
-			majAv(7,unit);
+			majAv(2,symbol);
+			majAv(3,symbol);
+			majAv(7,symbol);
 			break;
 		case 3:	//Deuxieme ligne
-			majAv(0,unit);
-			majAv(4,unit);
+			majAv(0,symbol);
+			majAv(4,symbol);
 			break;
 		case 4:
-			majAv(1,unit);
-			majAv(4,unit);
-			majAv(6,unit);
-			majAv(7,unit);
+			majAv(1,symbol);
+			majAv(4,symbol);
+			majAv(6,symbol);
+			majAv(7,symbol);
 			break;
 		case 5:
-			majAv(2, unit);
-			majAv(4, unit);
+			majAv(2, symbol);
+			majAv(4, symbol);
 			break;
 		case 6:	//Troisième ligne
-			majAv(0,unit);
-			majAv(5,unit);
-			majAv(7,unit);
+			majAv(0,symbol);
+			majAv(5,symbol);
+			majAv(7,symbol);
 			break;
 		case 7:
-			majAv(1, unit);
-			majAv(5, unit);
+			majAv(1, symbol);
+			majAv(5, symbol);
 			break;
 		case 8:
-			majAv(2,unit);
-			majAv(5,unit);
-			majAv(6,unit);
+			majAv(2,symbol);
+			majAv(5,symbol);
+			majAv(6,symbol);
 			break;
 		default:
 			break;
 		}
-		if(isFull()) bigG.changeAv(index, Case.F);
+		if(isFull() && this.etat==Case.F){
+			bigG.changeAv(index, Case.F);
+		}
 	}
 
-	private void majAv(int pos, int unit){
+	private void majAv(int pos, Case symbol){
 		if(avantages[pos]!=42){
-			if(unit==1){
+			if(symbol==Constantes.SYMBOLE_J1){
 				if(avantages[8+pos]>0){
 					avantages[pos]=42;
 					avantages[8+pos]=42;
@@ -106,7 +107,7 @@ public class SmallGrille{
 					if(++avantages[pos]==3) 
 						{
 						this.etat=Constantes.SYMBOLE_J1;
-						bigG.changeAv(index, Constantes.SYMBOLE_J1);
+						bigG.changeAv(index, symbol);
 						}
 				}
 			}
@@ -118,7 +119,7 @@ public class SmallGrille{
 				else{
 					if(++avantages[8+pos]==3){
 						this.etat=Constantes.SYMBOLE_J2;
-						bigG.changeAv(index, Constantes.SYMBOLE_J2);
+						bigG.changeAv(index, symbol);
 					}
 				}
 			}
@@ -170,7 +171,7 @@ public class SmallGrille{
 	 * @return valeur de la grille POUR LE JOUEUR DESIGNE
 	 */
 	public int evaluer(Case s){
-		if(this.etat==s) return 100;
+		if(this.etat==s) return 200;
 		if(this.etat==Case.F) return 0;
 		int poidAllign = 0;
 		int poidUnitaire = 1;

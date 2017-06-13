@@ -1,7 +1,6 @@
 package jeu;
 
 import data.*;
-import jeu.algosIA.Coup;
 import ui.*;
 
 public class Jeu extends Thread{

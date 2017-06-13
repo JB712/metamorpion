@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.BigGrille;
-import jeu.algosIA.Coup;
+import data.Coup;
 
 public class GrilleIG extends JPanel
 {

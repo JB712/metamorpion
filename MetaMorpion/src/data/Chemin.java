@@ -3,8 +3,6 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
-import jeu.algosIA.Coup;
-
 public class Chemin {
 	
 	private List<Coup> coups = new ArrayList<>();
