@@ -55,4 +55,5 @@ public abstract class Constantes {
 	public static final int AXE_DIAGONAL1 = 2;
 	public static final int AXE_DIAGONAL2 = 3;
 	
+	public static final int Avantage_Impossible = -42;
 }

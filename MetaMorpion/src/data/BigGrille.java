@@ -42,6 +42,7 @@ public class BigGrille{
 	}
 
 	public int getEtatPartie(Case symboleJoueurCourant){
+		wintest(symboleJoueurCourant);
 		return this.EtatPartie;
 		/*int victoirec, victoirea; //Pourra être simplifiée .... + c = courant et a = adversaire
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
@@ -119,7 +120,7 @@ public class BigGrille{
 		else if(this.EtatPartie==Constantes.VICTOIRE_JOUEUR_2) return Constantes.SYMBOLE_J2;
 		boolean nul = true;
 		for(int i=0;i<16;i++){
-			if(avantages[i]!=42){
+			if(avantages[i]!=Constantes.Avantage_Impossible){
 				nul=false;
 				break;
 			}
@@ -202,30 +203,39 @@ public class BigGrille{
 
 	private void majAv(int pos, Case symbol){
 		if(symbol==Case.F){
-			avantages[pos]=42;
-			avantages[pos+8]=42;
+			avantages[pos]=Constantes.Avantage_Impossible;
+			avantages[pos+8]=Constantes.Avantage_Impossible;
 			return;
 		}
-		if(avantages[pos]!=42){
-			if(symbol==Constantes.SYMBOLE_J1){
+		if(symbol==Constantes.SYMBOLE_J1){
+			if(avantages[pos]!=Constantes.Avantage_Impossible){
 				if(avantages[8+pos]>0){
-					avantages[pos]=42;
-					avantages[8+pos]=42;
+					avantages[pos]=Constantes.Avantage_Impossible;
+					avantages[8+pos]=Constantes.Avantage_Impossible;
 				}
 				else{
 					if(++avantages[pos]==3) this.EtatPartie=Constantes.VICTOIRE_JOUEUR_1;
-					avantages[8+pos]=42;
+					avantages[8+pos]=Constantes.Avantage_Impossible;
 				}
 			}
 			else{
+				avantages[8+pos]=Constantes.Avantage_Impossible;
+			}
+			return;
+		}
+		else{
+			if(avantages[8+pos]!=Constantes.Avantage_Impossible){
 				if(avantages[pos]>0){
-					avantages[8+pos]=42;
-					avantages[pos]=42;
+					avantages[8+pos]=Constantes.Avantage_Impossible;
+					avantages[pos]=Constantes.Avantage_Impossible;
 				}
 				else{
 					if(++avantages[8+pos]==3) this.EtatPartie=Constantes.VICTOIRE_JOUEUR_2;
-					avantages[pos]=42;
+					avantages[pos]=Constantes.Avantage_Impossible;
 				}
+			}
+			else{
+				avantages[pos]=Constantes.Avantage_Impossible;
 			}
 		}
 	}
