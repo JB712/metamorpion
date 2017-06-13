@@ -30,7 +30,7 @@ public class Jeu extends Thread{
 			{
 				System.out.println("COUP INVALIDE : Recommencez !");
 			}
-			
+			System.out.println(partie.getGrille().printAv());
 		}
 		console.closeScanner();
 		console.afficherFinPartie(partie);

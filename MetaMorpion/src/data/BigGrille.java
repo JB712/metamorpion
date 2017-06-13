@@ -12,10 +12,11 @@ public class BigGrille{
 	private SmallGrille[] cases = new SmallGrille[9];		// les lignes sont [0-2], [3-5], [6-8]
 	private int coupPrecedent=-666;
 	private int[] avantages = new int[16];
+	private int EtatPartie = Constantes.PARTIE_EN_COURS;
 
 	public BigGrille(){
 		for (int i=0; i<9; i++){
-			cases[i]=new SmallGrille();
+			cases[i]=new SmallGrille(this,i);
 		}
 		Arrays.fill(avantages, 0);
 	}
@@ -23,7 +24,7 @@ public class BigGrille{
 	public BigGrille(BigGrille bg){
 		for (int i=0; i<9; i++)
 		{
-			cases[i]=new SmallGrille();
+			cases[i]=new SmallGrille(this,i);
 			for (int j=0;j<9;j++)
 			{
 				cases[i].setCase(j, bg.getCase(i).getCase(j));
@@ -42,7 +43,8 @@ public class BigGrille{
 	}
 
 	public int getEtatPartie(Case symboleJoueurCourant){
-		int victoirec, victoirea; //Pourra être simplifiée .... + c = courant et a = adversaire
+		return this.EtatPartie;
+		/*int victoirec, victoirea; //Pourra être simplifiée .... + c = courant et a = adversaire
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
 		boolean matchnul = true;
 
@@ -63,8 +65,7 @@ public class BigGrille{
 
 		/*if(wintest(symboleJoueurCourant)==symboleJoueurCourant){
 			return (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.VICTOIRE_JOUEUR_1:Constantes.VICTOIRE_JOUEUR_2;
-		}*/
-
+		}
 		if(symboleJoueurCourant==Constantes.SYMBOLE_J1)
 		{
 			victoirec=Constantes.VICTOIRE_JOUEUR_1;
@@ -84,7 +85,7 @@ public class BigGrille{
 		if (this.wintest(symboleAdverse)==symboleAdverse){
 			return victoirea;
 		}
-		return Constantes.PARTIE_EN_COURS;
+		return Constantes.PARTIE_EN_COURS;*/
 	}
 
 	public int getCoupPrecedent()
@@ -98,12 +99,33 @@ public class BigGrille{
 	 * @return le symbole (type Case) du gagnant
 	 */
 	public Case wintest(Case s) {
-		winCases(s);
-		for(int i=0; i<8; i++){	//Boucle pour les X
-			if(avantages[i]==3) return Constantes.SYMBOLE_J1;
+		//winCases(s);
+		if(s==Constantes.SYMBOLE_J1){
+			for(int i=0; i<8; i++){	//Boucle pour les X
+				if(avantages[i]==3){
+					this.EtatPartie=Constantes.VICTOIRE_JOUEUR_1;
+					return Constantes.SYMBOLE_J1;
+				}
+			}
 		}
-		for(int i=8;i<16;i++){	//Boucle pour les O
-			if(avantages[i]==3) return Constantes.SYMBOLE_J2;
+		else{
+			for(int i=8;i<16;i++){	//Boucle pour les O
+				if(avantages[i]==3){
+					this.EtatPartie=Constantes.VICTOIRE_JOUEUR_2;
+					return Constantes.SYMBOLE_J2;
+				}
+			}
+		}
+		boolean nul = true;
+		for(int i=0;i<16;i++){
+			if(avantages[i]!=42){
+				nul=false;
+				break;
+			}
+		}
+		if(nul){
+			this.EtatPartie=Constantes.MATCH_NUL;
+			return Case.F;
 		}
 		/*if((cases[4].getEtat()==s &&
 				((cases[0].getEtat()==s && cases[8].getEtat()==s) || (cases[1].getEtat()==s && cases[7].getEtat()==s) 
@@ -117,86 +139,88 @@ public class BigGrille{
 		return Case.V;
 	}
 
-	public void winCases(Case s){
-		for (int i=0;i<8; i++) {
+	public void winCases(Case s){	//suposed useless
+		if(coupPrecedent != -666 && cases[coupPrecedent].getEtat()!=Case.V) changeAv(coupPrecedent,s);
+
+		/*for (int i=0;i<8; i++) {
 			if(!cases[i].isFull()){	//USELESS (a priori)
 				cases[i].wintest(s);
 				changeAv(i,s);
 			}
-		}
+		}*/
 	}
-	
+
 	public void changeAv(int pos, Case symbol){
-		int unit = (symbol==Constantes.SYMBOLE_J1)?1:-1;
 		switch(pos){
 		case 0:
-			majAv(0,unit);
-			majAv(3,unit);
-			majAv(6,unit);
+			majAv(0,symbol);
+			majAv(3,symbol);
+			majAv(6,symbol);
 			break;
 		case 1:
-			majAv(1, unit);
-			majAv(3, unit);
+			majAv(1, symbol);
+			majAv(3, symbol);
 			break;
 		case 2:
-			majAv(2,unit);
-			majAv(3,unit);
-			majAv(7,unit);
+			majAv(2,symbol);
+			majAv(3,symbol);
+			majAv(7,symbol);
 			break;
 		case 3:	//Deuxieme ligne
-			majAv(0,unit);
-			majAv(4,unit);
+			majAv(0,symbol);
+			majAv(4,symbol);
 			break;
 		case 4:
-			majAv(1,unit);
-			majAv(4,unit);
-			majAv(6,unit);
-			majAv(7,unit);
+			majAv(1,symbol);
+			majAv(4,symbol);
+			majAv(6,symbol);
+			majAv(7,symbol);
 			break;
 		case 5:
-			majAv(2, unit);
-			majAv(4, unit);
+			majAv(2, symbol);
+			majAv(4, symbol);
 			break;
 		case 6:	//Troisième ligne
-			majAv(0,unit);
-			majAv(5,unit);
-			majAv(7,unit);
+			majAv(0,symbol);
+			majAv(5,symbol);
+			majAv(7,symbol);
 			break;
 		case 7:
-			majAv(1, unit);
-			majAv(5, unit);
+			majAv(1, symbol);
+			majAv(5, symbol);
 			break;
 		case 8:
-			majAv(2,unit);
-			majAv(5,unit);
-			majAv(6,unit);
+			majAv(2,symbol);
+			majAv(5,symbol);
+			majAv(6,symbol);
 			break;
 		default:
 			break;
 		}
 	}
-	
-	private void majAv(int pos, int unit){
+
+	private void majAv(int pos, Case symbol){
+		if(symbol==Case.F){
+			avantages[pos]=42;
+			avantages[pos+8]=42;
+			return;
+		}
 		if(avantages[pos]!=42){
-			if(unit==1){
+			if(symbol==Constantes.SYMBOLE_J1){
 				if(avantages[8+pos]>0){
+					System.out.println("L'avantage de la position "+(pos+8)+"est déjà supérieur à 0");
 					avantages[pos]=42;
 					avantages[8+pos]=42;
 				}
-				else{
-					if(++avantages[pos]==3) this.etat=Constantes.SYMBOLE_J1;
-				}
+				else ++avantages[pos];
 			}
 			else{
 				if(avantages[pos]>0){
+					System.out.println("L'avantage de la position "+pos+"est déjà supérieur à 0");
 					avantages[8+pos]=42;
 					avantages[pos]=42;
 				}
-				else{
-					if(++avantages[8+pos]==3) {
-						this.etat=Constantes.SYMBOLE_J2;
-					}
-				}
+				else ++avantages[8+pos];
 			}
 		}
 	}
@@ -243,7 +267,13 @@ public class BigGrille{
 	public double evaluer(Case symboleJoueurCourant){
 		int poidDuCoup = 0;                        //représente la valeur de l'heuristique des choix de l'ordinateur
 		Case symboleAdverse = (symboleJoueurCourant==Constantes.SYMBOLE_J1)?Constantes.SYMBOLE_J2:Constantes.SYMBOLE_J1;
-		boolean matchnul = true;
+
+		wintest(symboleAdverse);
+
+		if(wintest(symboleJoueurCourant)==symboleJoueurCourant) poidDuCoup += 10000;
+		if(wintest(symboleAdverse)==symboleAdverse) poidDuCoup -= 10000;
+
+		/*boolean matchnul = true;
 
 		//On regarde d'abord s'il reste un coup à jouer
 		for (int i=0; i<9; i++) {
@@ -267,7 +297,7 @@ public class BigGrille{
 
 		else if (this.wintest(symboleAdverse)==symboleAdverse){
 			poidDuCoup -= 300000;
-		}
+		}*/
 
 		//Calcul des victoires uniques sur les petites grilles, et sinon les alignements de cases
 		for (SmallGrille sg : cases) {
@@ -284,9 +314,21 @@ public class BigGrille{
 
 	public int alignSG(Case s){
 
-		int poidAllignToReturn = 0;
-		int poidUnitaire = 10000;
+		int poidAllign = 0;
+		int poidUnitaire = 1000;
 
+		if(s==Constantes.SYMBOLE_J1){
+			for(int i=0;i<8;i++){
+				if(avantages[i]==2) poidAllign += poidUnitaire;
+			}
+		}
+		else{
+			for(int i=8;i<16;i++){
+				if(avantages[i]==2) poidAllign += poidUnitaire;
+			}
+		}
+
+		/*
 		// en ligne et colonnes
 		for(int i=0; i<3; i++){
 			if(cases[3*i].getEtat()==s){		//Test des solutions en ligne
@@ -330,9 +372,18 @@ public class BigGrille{
 		}
 		else if(cases[2].getEtat()==Case.V && cases[4].getEtat()==s && cases[6].getEtat()==s){
 			poidAllignToReturn += poidUnitaire;
-		}
+		}*/
 
-		return poidAllignToReturn;
+		return poidAllign;
+	}
+
+	public String printAv(){
+		String s="[";
+		for(int i=0;i<16;i++){
+			s+=avantages[i]+" ";
+		}
+		s+="]";
+		return s;
 	}
 
 }

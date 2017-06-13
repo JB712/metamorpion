@@ -8,15 +8,26 @@ import util.Constantes.*;
 
 public class SmallGrille{
 
+	private int index;
 	private Case etat = Case.V;
 	private Case[] cases = new Case[9];		// les lignes sont [0-2], [3-5], [6-8]
 	private int[] avantages = new int[16];	// 012colonne, 345ligne, 6diag1-9, 7diag3-7
+	private BigGrille bigG;
 
 	public SmallGrille(){
 		for (int i=0; i<9; i++){
 			cases[i]=Case.V;
 		}
 		Arrays.fill(avantages, 0);
+	}
+	
+	public SmallGrille(BigGrille bg, int index){
+		for (int i=0; i<9; i++){
+			cases[i]=Case.V;
+		}
+		Arrays.fill(avantages, 0);
+		this.bigG = bg;
+		this.index=index;
 	}
 
 	public Case getEtat(){
@@ -81,6 +92,7 @@ public class SmallGrille{
 		default:
 			break;
 		}
+		if(isFull()) bigG.changeAv(index, Case.F);
 	}
 
 	private void majAv(int pos, int unit){
@@ -91,7 +103,11 @@ public class SmallGrille{
 					avantages[8+pos]=42;
 				}
 				else{
-					if(++avantages[pos]==3) this.etat=Constantes.SYMBOLE_J1;
+					if(++avantages[pos]==3) 
+						{
+						this.etat=Constantes.SYMBOLE_J1;
+						bigG.changeAv(index, Constantes.SYMBOLE_J1);
+						}
 				}
 			}
 			else{
@@ -100,8 +116,9 @@ public class SmallGrille{
 					avantages[pos]=42;
 				}
 				else{
-					if(++avantages[8+pos]==3) {
+					if(++avantages[8+pos]==3){
 						this.etat=Constantes.SYMBOLE_J2;
+						bigG.changeAv(index, Constantes.SYMBOLE_J2);
 					}
 				}
 			}
@@ -111,10 +128,16 @@ public class SmallGrille{
 	public void wintest(Case s) {
 		if(this.etat==Case.V){
 			for(int i=0; i<8; i++){	//Boucle pour les X
-				if(avantages[i]==3) this.etat=Constantes.SYMBOLE_J1;
+				if(avantages[i]==3){
+					this.etat=Constantes.SYMBOLE_J1;
+					bigG.changeAv(index, Constantes.SYMBOLE_J1);
+				}
 			}
 			for(int i=8;i<16;i++){	//Boucle pour les O
-				if(avantages[i]==3) this.etat=Constantes.SYMBOLE_J2;
+				if(avantages[i]==3){
+					this.etat=Constantes.SYMBOLE_J2;
+					bigG.changeAv(index, Constantes.SYMBOLE_J2);
+				}
 			}
 		}
 		/*if((cases[4]==s &&
@@ -141,11 +164,29 @@ public class SmallGrille{
 		return (cases[cas]==Case.V);
 	}
 
+	/**
+	 * Fonction qui évalue une smallgrille dans son entièreté: la victoire et les alignements
+	 * @param s (Case du joueur qu'on évalue)
+	 * @return valeur de la grille POUR LE JOUEUR DESIGNE
+	 */
 	public int evaluer(Case s){
 		if(this.etat==s) return 100;
+		if(this.etat==Case.F) return 0;
 		int poidAllign = 0;
 		int poidUnitaire = 1;
 
+		if(s==Constantes.SYMBOLE_J1){
+			for(int i=0;i<8;i++){
+				if(avantages[i]==2) poidAllign += poidUnitaire;
+			}
+		}
+		else{
+			for(int i=8;i<16;i++){
+				if(avantages[i]==2) poidAllign += poidUnitaire;
+			}
+		}
+
+		/*
 		// en ligne et colonnes
 		for(int i=0; i<3; i++){
 			if(cases[3*i]==s){		//Test des solutions en ligne
@@ -189,7 +230,7 @@ public class SmallGrille{
 		}
 		else if(cases[2]==Case.V && cases[4]==s && cases[6]==s){
 			poidAllign += poidUnitaire;
-		}
+		}*/
 
 		return poidAllign;
 	}
