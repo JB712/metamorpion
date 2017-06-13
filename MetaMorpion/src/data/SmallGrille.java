@@ -20,7 +20,7 @@ public class SmallGrille{
 		}
 		Arrays.fill(avantages, 0);
 	}
-	
+
 	public SmallGrille(BigGrille bg, int index){
 		for (int i=0; i<9; i++){
 			cases[i]=Case.V;
@@ -105,10 +105,11 @@ public class SmallGrille{
 				}
 				else{
 					if(++avantages[pos]==3) 
-						{
+					{
 						this.etat=Constantes.SYMBOLE_J1;
+						avantages[8+pos]=42;
 						bigG.changeAv(index, symbol);
-						}
+					}
 				}
 			}
 			else{
@@ -119,6 +120,7 @@ public class SmallGrille{
 				else{
 					if(++avantages[8+pos]==3){
 						this.etat=Constantes.SYMBOLE_J2;
+						avantages[pos]=42;
 						bigG.changeAv(index, symbol);
 					}
 				}

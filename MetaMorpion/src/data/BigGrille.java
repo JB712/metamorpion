@@ -214,6 +214,7 @@ public class BigGrille{
 				}
 				else{
 					if(++avantages[pos]==3) this.EtatPartie=Constantes.VICTOIRE_JOUEUR_1;
+					avantages[8+pos]=42;
 				}
 			}
 			else{
@@ -223,6 +224,7 @@ public class BigGrille{
 				}
 				else{
 					if(++avantages[8+pos]==3) this.EtatPartie=Constantes.VICTOIRE_JOUEUR_2;
+					avantages[pos]=42;
 				}
 			}
 		}
