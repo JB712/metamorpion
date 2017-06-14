@@ -104,4 +104,32 @@ public class ConsoleIG extends Console {
 	{
 		mm.updateLogs("COUP INVALIDE : Recommencez !");
 	}
+	
+	private String timeToString(long t)
+	{
+		String s="";
+		if(t>3600000)
+		{
+			long h=t/3600000;
+			s+=h+"h ";
+			t-=h*3600000;
+		}
+		if(t>60000)
+		{
+			long m=t/60000;
+			s+=m+"m ";
+			t-=m*60000;
+		}
+		if(t>1000)
+		{
+			long sec=t/1000;
+			s+=sec+"s ";
+			t-=sec*1000;
+		}
+		if(t>0)
+		{
+			s+=t+"ms";
+		}
+		return s;
+	}
 }

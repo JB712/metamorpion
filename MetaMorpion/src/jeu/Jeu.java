@@ -24,12 +24,12 @@ public class Jeu extends Thread{
 			long tempsReflexion=System.currentTimeMillis();
 			Coup coup=partie.getJCourant().joue(partie.getGrille(), console, partie.getTour(), partie.getJCourant().getSymbole());
 			tempsReflexion=System.currentTimeMillis()-tempsReflexion;
-			console.afficherCoup(partie.getJCourant(), coup);     //afficherCoup sert surtout dans le choix de l'IA
+			console.afficherCoup(partie.getJCourant(), coup, tempsReflexion);     //afficherCoup sert surtout dans le choix de l'IA
 			if(!partie.jouerCoup(coup, tempsReflexion))
 			{
 				System.out.println("COUP INVALIDE : Recommencez !");
 			}
-			System.out.println(partie.getGrille().printAv());
+			//System.out.println(partie.getGrille().printAv());
 		}
 		console.closeScanner();
 		console.afficherFinPartie(partie);

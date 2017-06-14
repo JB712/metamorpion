@@ -5,6 +5,7 @@ import util.*;
 public class Partie {
 
 	private Joueur j1, j2;
+	private long tempsReflexionJoueur1,tempsReflexionJoueur2;
 	private Joueur jCourant;
 	private int tour;
 	private BigGrille grille;
@@ -14,6 +15,8 @@ public class Partie {
 		j1=joueur1;
 		j2=joueur2;
 		jCourant=j1;
+		this.tempsReflexionJoueur1=0;
+		this.tempsReflexionJoueur2=0;
 		etatPartie=Constantes.PARTIE_EN_COURS;
 		grille = new BigGrille();
 	}
@@ -57,6 +60,16 @@ public class Partie {
 
 	public int getEtatPartie() {
 		return etatPartie;
+	}
+	
+	public long getTempsReflexionJ1()
+	{
+		return tempsReflexionJoueur1;
+	}
+	
+	public long getTempsReflexionJ2()
+	{
+		return tempsReflexionJoueur2;
 	}
 
 
