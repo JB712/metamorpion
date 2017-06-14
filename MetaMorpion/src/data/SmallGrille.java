@@ -20,7 +20,7 @@ public class SmallGrille{
 		}
 		Arrays.fill(avantages, 0);
 	}
-	
+
 	public SmallGrille(BigGrille bg, int index){
 		for (int i=0; i<9; i++){
 			cases[i]=Case.V;
@@ -97,28 +97,30 @@ public class SmallGrille{
 	}
 
 	private void majAv(int pos, Case symbol){
-		if(avantages[pos]!=42){
+		if(avantages[pos]!=Constantes.Avantage_Impossible){
 			if(symbol==Constantes.SYMBOLE_J1){
 				if(avantages[8+pos]>0){
-					avantages[pos]=42;
-					avantages[8+pos]=42;
+					avantages[pos]=Constantes.Avantage_Impossible;
+					avantages[8+pos]=Constantes.Avantage_Impossible;
 				}
 				else{
 					if(++avantages[pos]==3) 
-						{
+					{
 						this.etat=Constantes.SYMBOLE_J1;
+						avantages[8+pos]=Constantes.Avantage_Impossible;
 						bigG.changeAv(index, symbol);
-						}
+					}
 				}
 			}
 			else{
 				if(avantages[pos]>0){
-					avantages[8+pos]=42;
-					avantages[pos]=42;
+					avantages[8+pos]=Constantes.Avantage_Impossible;
+					avantages[pos]=Constantes.Avantage_Impossible;
 				}
 				else{
 					if(++avantages[8+pos]==3){
 						this.etat=Constantes.SYMBOLE_J2;
+						avantages[pos]=Constantes.Avantage_Impossible;
 						bigG.changeAv(index, symbol);
 					}
 				}

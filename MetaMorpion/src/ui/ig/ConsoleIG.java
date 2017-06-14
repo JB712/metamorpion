@@ -89,15 +89,15 @@ public class ConsoleIG extends Console {
 	}
 
 	public void afficherCoupSimple(Joueur joueurCourant, int coup) {
-		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la case "+(coup)+"\n");
+		mm.updateLogs(joueurCourant.getNom() +" a joué dans la case "+(coup)+"\n");
 	}
 
 	public void afficherCoupDouble(Joueur joueurCourant, int bg, int sg) {
-		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(bg)+ " et dans la case " +(sg) + "\n");
+		mm.updateLogs(joueurCourant.getNom() +" a joué dans la grille "+(bg)+ " et dans la case " +(sg) + "\n");
 	}
 
 	public void afficherCoup(Joueur joueurCourant, Coup coup) {
-		mm.updateLogs(joueurCourant.getNom() +" a choisi de mettre son symbole dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1) + "\n");
+		mm.updateLogs(joueurCourant.getNom() +" a joué dans la grille "+(coup.getGrille()+1)+ " et dans la case " +(coup.getC()+1) + "\n");
 	}
 	
 	public void afficherCoupInvalide()
