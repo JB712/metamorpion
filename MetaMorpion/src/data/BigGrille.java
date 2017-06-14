@@ -288,7 +288,7 @@ public class BigGrille{
 
 		/*boolean matchnul = true;
 
-		//On regarde d'abord s'il reste un coup à jouer
+		//On regarde d'abord s'il reste un coup à jouer.
 		for (int i=0; i<9; i++) {
 			if(isGrilleLibre(i)){
 				for(int j=0; j<9; j++){
