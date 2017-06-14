@@ -247,6 +247,17 @@ public class BigGrille{
 		return true;
 	}
 
+	public boolean isCoupPossible(int grille)
+	{
+		for (int i=0;i<9;i++)
+		{
+			Coup coup=new Coup(grille, i);
+			if (isCoupPossible(coup))
+				return true;
+		}
+		return false;
+	}
+	
 	public boolean isCoupPossible(Coup coup)
 	{
 		int grille=coup.getGrille();

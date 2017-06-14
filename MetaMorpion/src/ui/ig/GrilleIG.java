@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import data.BigGrille;
 import data.Coup;
+import util.Constantes.Case;
 
 public class GrilleIG extends JPanel
 {
@@ -49,13 +50,9 @@ public class GrilleIG extends JPanel
 	{
 		for (int i=0;i<9;i++)
 		{
-			/*if (!grille.isGrilleLibre(i))
 			{
-				remove(i);
-				add(new JPanel(),i);
-			}
-			else*/
-			{
+				cases[i].setCanPlay(grille.isCoupPossible(i));
+				cases[i].setFinished(grille.getCase(i).getEtat());
 				cases[i].update(grille.getCase(i));
 			}
 		}

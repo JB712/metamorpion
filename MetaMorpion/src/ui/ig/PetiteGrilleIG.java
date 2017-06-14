@@ -22,7 +22,9 @@ public class PetiteGrilleIG extends JPanel{
 	private int idGrille;
 	private GrilleIG grille;
 	private Icon iconX,iconO;
-	
+	private Case finished=Case.V;
+	private boolean canPlay;
+
 	public PetiteGrilleIG(GrilleIG grilleIG, int idGrille)
 	{
 		super();
@@ -49,10 +51,10 @@ public class PetiteGrilleIG extends JPanel{
 			cases[i]=new CaseIG(this,i);
 			this.add(cases[i]);
 		}
-		
+
 		iconX=new ImageIcon(x.getScaledInstance(15,15, Image.SCALE_DEFAULT));
 		iconO=new ImageIcon(o.getScaledInstance(15,15, Image.SCALE_DEFAULT));
-		
+
 	}
 
 	public void setCoup(int c)
@@ -63,6 +65,14 @@ public class PetiteGrilleIG extends JPanel{
 	public void activate(boolean b) {
 		for (CaseIG c : cases)
 		{
+			if (finished==Case.O)
+			{
+				c.setBackground(Color.RED);
+			}
+			else if (finished==Case.X)
+			{
+				c.setBackground(Color.BLUE);
+			}
 			c.setEnabled(b);
 		}
 	}
@@ -70,19 +80,28 @@ public class PetiteGrilleIG extends JPanel{
 	public void update(SmallGrille g) {
 		for (int i=0;i<9;i++)
 		{
-			if (g.getCase(i)==Case.V)
+			if (finished!=Case.V)
 			{
-				cases[i].setBackground(Color.white);
+				cases[i].setIcon(null);
+			}
+			else if (g.getCase(i)==Case.V)
+			{
+				if (canPlay)
+				{
+					cases[i].setBackground(Color.green);
+				}
+				else
+					cases[i].setBackground(Color.white);
 			}
 			else if (g.getCase(i)==Case.X)
 			{
 				cases[i].setIcon(iconX);
-				//cases[i].setBackground(Color.RED);
+				cases[i].setBackground(Color.WHITE);
 			}
 			else if (g.getCase(i)==Case.O)
 			{
 				cases[i].setIcon(iconO);
-				//cases[i].setBackground(Color.BLUE);
+				cases[i].setBackground(Color.WHITE);
 			}
 		}
 	}
@@ -92,5 +111,14 @@ public class PetiteGrilleIG extends JPanel{
 		{
 			cases[i].setIcon(null);
 		}
+	}
+
+	public void setFinished(Case c) {
+		this.finished=c;
+	}
+
+	public void setCanPlay(boolean b)
+	{
+		this.canPlay=b;
 	}
 }
