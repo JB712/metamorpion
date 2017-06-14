@@ -5,10 +5,6 @@
  */
 package ui.ig;
 
-/**
- *
- * @author vicle
- */
 public class HumainPanel extends javax.swing.JPanel {
 
     /**

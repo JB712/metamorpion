@@ -8,10 +8,6 @@ package ui.ig;
 import jeu.algosIA.Algorithm;
 import util.Constantes;
 
-/**
- *
- * @author vicle
- */
 public class IAPanel extends javax.swing.JPanel {
 
 	/**
