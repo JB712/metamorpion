@@ -63,8 +63,9 @@ public class PetiteGrilleIG extends JPanel{
 	}
 
 	public void activate(boolean b) {
-		for (CaseIG c : cases)
+		for (int i=0;i<9;i++)
 		{
+			CaseIG c = cases[i];
 			if (finished==Case.O)
 			{
 				c.setBackground(Color.RED);

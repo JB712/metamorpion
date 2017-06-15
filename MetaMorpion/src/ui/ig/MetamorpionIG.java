@@ -68,7 +68,7 @@ public class MetamorpionIG extends javax.swing.JFrame {
         jButton1.setText("C'est parti !");
 
         jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
+        jTextArea1.setRows(4);
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -108,6 +108,8 @@ public class MetamorpionIG extends javax.swing.JFrame {
 
         DefaultCaret caret = (DefaultCaret)jTextArea1.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        
+        
         
         pack();
     }// </editor-fold>                        
