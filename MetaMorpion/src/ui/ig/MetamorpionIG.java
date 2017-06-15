@@ -12,6 +12,7 @@ import java.awt.event.AdjustmentListener;
 
 import javax.swing.text.DefaultCaret;
 
+import data.BigGrille;
 import data.Joueur;
 import jeu.Jeu;
 import ui.Console;
@@ -21,6 +22,7 @@ public class MetamorpionIG extends javax.swing.JFrame {
 
 	
 	private ConsoleIG console;
+	private Jeu jeu=null;
 	
     /**
      * Creates new form Metamorpion2IG
@@ -54,9 +56,14 @@ public class MetamorpionIG extends javax.swing.JFrame {
 				Joueur j1=choixJoueur1.getJoueur(Constantes.JOUEUR_1);
 				Joueur j2=choixJoueur2.getJoueur(Constantes.JOUEUR_2);
 				
-				Jeu jeu = new Jeu(j1, j2, console);
+				if (jeu!=null)
+					jeu.stop();
+				jeu = new Jeu(j1, j2, console);
 				jeu.start();
 				grilleIG1.clean();
+				BigGrille bg = jeu.getPartie().getGrille();
+				grilleIG1.update(bg);
+				grilleIG1.activate(j1.getType()==Constantes.JOUEUR_HUMAN);
 			}
 		});
         
@@ -68,7 +75,7 @@ public class MetamorpionIG extends javax.swing.JFrame {
         jButton1.setText("C'est parti !");
 
         jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
+        jTextArea1.setRows(4);
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -108,6 +115,8 @@ public class MetamorpionIG extends javax.swing.JFrame {
 
         DefaultCaret caret = (DefaultCaret)jTextArea1.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        
+        
         
         pack();
     }// </editor-fold>                        

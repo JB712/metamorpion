@@ -6,7 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.BigGrille;
-import jeu.algosIA.Coup;
+import data.Coup;
+import util.Constantes.Case;
 
 public class GrilleIG extends JPanel
 {
@@ -49,7 +50,11 @@ public class GrilleIG extends JPanel
 	{
 		for (int i=0;i<9;i++)
 		{
-			cases[i].update(grille.getCase(i));
+			{
+				cases[i].setCanPlay(grille.isCoupPossible(i));
+				cases[i].setFinished(grille.getCase(i).getEtat());
+				cases[i].update(grille.getCase(i));
+			}
 		}
 	}
 

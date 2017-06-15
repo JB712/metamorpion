@@ -1,6 +1,7 @@
 package jeu.algosIA;
 
 import data.BigGrille;
+import data.Coup;
 import data.Joueur;
 import data.Partie;
 import util.Constantes;

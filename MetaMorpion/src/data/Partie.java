@@ -1,6 +1,5 @@
 package data;
 
-import jeu.algosIA.Coup;
 import util.*;
 
 public class Partie {
@@ -62,6 +61,16 @@ public class Partie {
 	public int getEtatPartie() {
 		return etatPartie;
 	}
+	
+	public long getTempsReflexionJ1()
+	{
+		return tempsReflexionJoueur1;
+	}
+	
+	public long getTempsReflexionJ2()
+	{
+		return tempsReflexionJoueur2;
+	}
 
 
 	/**
@@ -92,6 +101,7 @@ public class Partie {
 		if(matchnul) etatPartie = Constantes.MATCH_NUL;
 		return matchnul;
 	}
+	
 
 	public boolean jouerCoup(Coup coup, long tempsReflexion)
 	{
@@ -117,16 +127,6 @@ public class Partie {
 		}
 		tour++;
 		return true;
-	}
-
-	public long getTempsReflexionJ1()
-	{
-		return tempsReflexionJoueur1;
-	}
-	
-	public long getTempsReflexionJ2()
-	{
-		return tempsReflexionJoueur2;
 	}
 
 	/*public boolean jouerCoupSimple(int cas, long tempsReflexion) {

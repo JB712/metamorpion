@@ -34,7 +34,7 @@ public class ChoixJoueur extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Humain", "IA" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IA", "Humain" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -70,11 +70,11 @@ public class ChoixJoueur extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(iAPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        iAPanel1.setVisible(false);
+        humainPanel1.setVisible(false);
     }// </editor-fold>                        
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        if (jComboBox1.getSelectedIndex()==0)
+        if (jComboBox1.getSelectedIndex()==1)
         {
             iAPanel1.setVisible(false);
             humainPanel1.setVisible(true);
@@ -111,7 +111,7 @@ public class ChoixJoueur extends javax.swing.JPanel {
     
 	private boolean ia()
 	{
-		return !(jComboBox1.getSelectedIndex()==0);
+		return (jComboBox1.getSelectedIndex()==0);
 	}
 
 }

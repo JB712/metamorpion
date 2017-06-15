@@ -1,6 +1,5 @@
 package data;
 
-import jeu.algosIA.Coup;
 import ui.Console;
 import util.Constantes;
 import util.Constantes.Case;

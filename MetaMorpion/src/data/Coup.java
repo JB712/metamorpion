@@ -1,4 +1,4 @@
-package jeu.algosIA;
+package data;
 
 public class Coup {
 
