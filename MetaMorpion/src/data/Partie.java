@@ -101,6 +101,7 @@ public class Partie {
 		if(matchnul) etatPartie = Constantes.MATCH_NUL;
 		return matchnul;
 	}
+	
 
 	public boolean jouerCoup(Coup coup, long tempsReflexion)
 	{

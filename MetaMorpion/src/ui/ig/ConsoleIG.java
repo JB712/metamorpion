@@ -52,10 +52,12 @@ public class ConsoleIG extends Console {
 	{
 		mm.updateLogs("************* Tour "+tour+" ************");
 		mm.updateLogs("C'est ра "+jCourant.getNom()+" ( "+jCourant.getSymbole()+" ) "+" de jouer !");
-		ig.update(grille);
+		//ig.update(grille);
 	}
 
 	public void afficherFinPartie(Partie partie) {
+		ig.update(partie.getGrille());
+		ig.activate(false);
 		String msg;
 		switch(partie.getEtatPartie())
 		{
@@ -73,13 +75,11 @@ public class ConsoleIG extends Console {
 		mm.updateLogs("Joueur 1 :" + partie.getJ1().getNom());
 		mm.updateLogs("Joueur 2 :" + partie.getJ2().getNom());
 		mm.updateLogs("******************************************************************");
-		ig.update(partie.getGrille());
 	}
 
 	public Coup getHumanCoup(BigGrille g, String nom, Case cas) {
 		ig.activate(true);
 		Coup c = ig.getCoup();
-		ig.activate(false);
 		return c;
 	}
 
@@ -132,4 +132,10 @@ public class ConsoleIG extends Console {
 		}
 		return s;
 	}
+	
+	public void update(BigGrille g, boolean activate) {
+		ig.update(g);
+		ig.activate(activate);
+	}
+
 }

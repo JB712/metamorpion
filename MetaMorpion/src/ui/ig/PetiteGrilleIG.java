@@ -63,17 +63,34 @@ public class PetiteGrilleIG extends JPanel{
 	}
 
 	public void activate(boolean b) {
+		if (finished==Case.O)
+		{
+			cases[0].setBackground(Color.RED);
+			cases[1].setBackground(Color.RED);
+			cases[2].setBackground(Color.RED);
+			cases[3].setBackground(Color.RED);
+			cases[4].setBackground(Color.WHITE);
+			cases[5].setBackground(Color.RED);
+			cases[6].setBackground(Color.RED);
+			cases[7].setBackground(Color.RED);
+			cases[8].setBackground(Color.RED);
+		}
+		else if (finished==Case.X)
+		{
+			cases[0].setBackground(Color.BLUE);
+			cases[1].setBackground(Color.WHITE);
+			cases[2].setBackground(Color.BLUE);
+			cases[3].setBackground(Color.WHITE);
+			cases[4].setBackground(Color.BLUE);
+			cases[5].setBackground(Color.WHITE);
+			cases[6].setBackground(Color.BLUE);
+			cases[7].setBackground(Color.WHITE);
+			cases[8].setBackground(Color.BLUE);
+		}
+		else
 		for (int i=0;i<9;i++)
 		{
 			CaseIG c = cases[i];
-			if (finished==Case.O)
-			{
-				c.setBackground(Color.RED);
-			}
-			else if (finished==Case.X)
-			{
-				c.setBackground(Color.BLUE);
-			}
 			c.setEnabled(b);
 		}
 	}

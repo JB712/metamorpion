@@ -224,4 +224,9 @@ public class Console extends Thread {
 		}
 		return s;
 	}
+
+	public void update(BigGrille g, boolean activate) {
+		// TODO Auto-generated method stub
+		
+	}
 }

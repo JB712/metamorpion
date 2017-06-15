@@ -12,6 +12,7 @@ import java.awt.event.AdjustmentListener;
 
 import javax.swing.text.DefaultCaret;
 
+import data.BigGrille;
 import data.Joueur;
 import jeu.Jeu;
 import ui.Console;
@@ -57,6 +58,9 @@ public class MetamorpionIG extends javax.swing.JFrame {
 				Jeu jeu = new Jeu(j1, j2, console);
 				jeu.start();
 				grilleIG1.clean();
+				BigGrille bg = jeu.getPartie().getGrille();
+				grilleIG1.update(bg);
+				grilleIG1.activate(j1.getType()==Constantes.JOUEUR_HUMAN);
 			}
 		});
         
