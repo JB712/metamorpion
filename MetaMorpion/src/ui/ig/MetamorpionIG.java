@@ -22,6 +22,7 @@ public class MetamorpionIG extends javax.swing.JFrame {
 
 	
 	private ConsoleIG console;
+	private Jeu jeu=null;
 	
     /**
      * Creates new form Metamorpion2IG
@@ -55,7 +56,9 @@ public class MetamorpionIG extends javax.swing.JFrame {
 				Joueur j1=choixJoueur1.getJoueur(Constantes.JOUEUR_1);
 				Joueur j2=choixJoueur2.getJoueur(Constantes.JOUEUR_2);
 				
-				Jeu jeu = new Jeu(j1, j2, console);
+				if (jeu!=null)
+					jeu.stop();
+				jeu = new Jeu(j1, j2, console);
 				jeu.start();
 				grilleIG1.clean();
 				BigGrille bg = jeu.getPartie().getGrille();

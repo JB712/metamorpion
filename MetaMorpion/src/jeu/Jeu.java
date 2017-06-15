@@ -8,6 +8,7 @@ public class Jeu extends Thread{
 
 	private Partie partie;
 	private Console console;
+	private boolean threadStopped;
 
 	public Jeu(Joueur j1, Joueur j2, Console console)
 	{
@@ -20,7 +21,7 @@ public class Jeu extends Thread{
 		console.lancementPartie(partie.getJ1(), partie.getJ2());
 		Coup coup=null;
 		long tempsReflexion=0;
-		while(!partie.isGameOver())
+		while(!partie.isGameOver() && !threadStopped)
 		{
 			console.lancementTour(partie.getTour(), partie.getJCourant(), partie.getGrille());
 
@@ -39,11 +40,17 @@ public class Jeu extends Thread{
 			//System.out.println(partie.getGrille().printAv());
 		}
 		console.closeScanner();
+		if (!threadStopped)
 		console.afficherFinPartie(partie);
 	}
 	
 	public Partie getPartie()
 	{
 		return partie;
+	}
+	
+	public void stopThread()
+	{
+		threadStopped=true;
 	}
 }
