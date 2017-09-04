@@ -30,11 +30,9 @@ public class PetiteGrilleIG extends JPanel{
 		super();
 		Image x = null,o = null;
 		try {
-			x=ImageIO.read(new File(getClass().getResource("images/X.png").toURI()));
-			o=ImageIO.read(new File(getClass().getResource("images/O.jpg").toURI()));
+			x=ImageIO.read(getClass().getResourceAsStream("images/X.png"));
+			o=ImageIO.read(getClass().getResourceAsStream("images/O.jpg"));
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
 

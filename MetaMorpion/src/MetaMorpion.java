@@ -28,3 +28,5 @@ public class MetaMorpion {
 	}
 
 }
+
+// Made by Lecoin Jean-Baptiste & Didelot Igor
